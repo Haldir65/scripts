@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "noImplicitAny": true,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "sourceMap": true,
+      "lib": ["es6","dom"]
+    },
+    "files": [
+      "generic.ts",
+      "interfaces.ts",
+      "tuple.ts"
+    ]
+  }
