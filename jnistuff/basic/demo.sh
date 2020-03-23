@@ -8,6 +8,8 @@ mkdir -p com/baeldung/jni
 
 mv HelloWorldJNI.class com/baeldung/jni/HelloWorldJNI.class
 ## javac -h . HelloWorldJNI.java create header file
+## cd src && javah -d jni com.example.Hello  will create a jni folder in src
+## and .h file like src/jni/com_example_Hello.h
 
 ## build dylib on macos
 g++ -c -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/darwin com_baeldung_jni_HelloWorldJNI.cpp -o com_baeldung_jni_HelloWorldJNI.o
