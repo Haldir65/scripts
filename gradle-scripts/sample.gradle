@@ -1,0 +1,19 @@
+task transform {
+    ext.srcFile = file('hello.txt')
+    ext.destDir = new File(buildDir, 'generated')
+    inputs.file srcFile
+    outputs.dir destDir
+    doLast {
+        destDir.mkdirs()
+        def ins = new BufferedReader(new FileReader(srcFile))
+        def stringBuilder = new StringBuilder()
+        def temp
+        while ((temp = ins.readLine()) != null) {
+            stringBuilder.append(temp)
+            stringBuilder.append("\n")
+        }
+        def destFile = new File(destDir, "world.txt")
+        destFile.text = stringBuilder.toString()
+    }
+}
+

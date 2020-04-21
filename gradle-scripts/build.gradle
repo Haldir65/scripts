@@ -1,0 +1,3 @@
+apply from : "sample.gradle"
+apply from : "app/build.gradle"
+apply from : "lib1/build.gradle"

@@ -1,0 +1,15 @@
+include ':app', ':lib1',
+
+getLocalProperties().entrySet().each { entry ->
+    def moduleName = entry.key
+    def value = entry.value
+
+    println "moduleName is  $moduleName \n value is $value"
+    // if (Boolean.valueOf(entry.value)) {
+    //     // def file = new File(rootProject.projectDir.parent, "/${moduleName.replace("\\W", "")}/${moduleName.toLowerCase()}")
+    //     // if (file.exists()) {
+    //     //     include ":${moduleName.toLowerCase()}"
+    //     //     project(":${moduleName.toLowerCase()}").projectDir = file
+    //     // }
+    // }
+}
