@@ -24,7 +24,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="ext.kotlin_version = '1.3.61'\n"
 
 
 GRALDE_PATTERN="com.android.tools.build:gradle"
-GRALDE_PATTERN_REPLACEMENT="        classpath 'com.android.tools.build:gradle:3.6.2'\n"
+GRALDE_PATTERN_REPLACEMENT="        classpath 'com.android.tools.build:gradle:3.6.3'\n"
 
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
@@ -40,8 +40,26 @@ BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '28.0.3'\n"
 COMPILE_SUPPORT_V7_PATTERN="com.android.support:appcompat-v7"
 COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT="    implementation 'com.android.support:appcompat-v7:28.0.0'\n"
 
+COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN="com.android.support:recyclerview-v7"
+COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT="    implementation 'com.android.support:recyclerview-v7:28.0.0'\n"
+
 CONSTRAINT_LAYOUT="com.android.support.constraint:constraint-layout"
 CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'com.android.support.constraint:constraint-layout:1.1.3'\n"
+
+GLIDE_PATTERN="com.github.bumptech.glide:glide"
+GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.7.1'\n"
+
+OKHTTP3_PATTERN="com.squareup.okhttp3:okhttp:"
+OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:3.10.0'\n"
+
+RXJAVA_PATTERN="io.reactivex.rxjava2:rxjava"
+RXJAVA_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'\n"
+
+RX_ANDROID_PATTERN="io.reactivex.rxjava2:rxandroid"
+RX_ANDROID_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'\n"
+
+RETROFIT_PATTERN="com.squareup.retrofit2:retrofit"
+RETROFT_PATTERN_REPLACEMENT="    implementation 'com.squareup.retrofit2:retrofit:2.5.0'\n"
 
 
 TEST_RUNNNER_PATTERN="com.android.support.test:runner"
@@ -49,7 +67,6 @@ TEST_RUNNNER_PATTERN_REPLACEMENT="androidTestImplementation 'com.android.support
 
 TEST_ESPRESSO_PATTERN="com.android.support.test.espresso:espresso-core"
 TEST_ESPRESSO_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'\n"
-
 
 JUNIT_PATTER="junit:junit:"
 JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13'\n"
@@ -71,7 +88,15 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROIDX_APPCOMPAT:ANDROIDX_APPCOMPAT_REPLACEMENT,
     JUNIT_PATTER:JUNIT_PATTER_REPLACE_MENT,
     TEST_RUNNNER_PATTERN:TEST_RUNNNER_PATTERN_REPLACEMENT,
-    TEST_ESPRESSO_PATTERN:TEST_ESPRESSO_PATTERN_REPLACEMENT}
+    TEST_ESPRESSO_PATTERN:TEST_ESPRESSO_PATTERN_REPLACEMENT,
+    GLIDE_PATTERN:GLIDE_PATTERN_REPLACEMENT,
+    OKHTTP3_PATTERN:OKHTTP3_PATTERN_REPLACEMENT,
+    RXJAVA_PATTERN:RXJAVA_PATTERN_REPLACEMENT,
+    RX_ANDROID_PATTERN:RX_ANDROID_PATTERN_REPLACEMENT,
+    RETROFIT_PATTERN:RETROFT_PATTERN_REPLACEMENT,
+    COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN:COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT,
+    GRALDE_PATTERN:GRALDE_PATTERN_REPLACEMENT
+    }
 
 
 def replace(file_path, userdict):
@@ -129,6 +154,7 @@ def maybe_multiple_module():
             if(os.path.exists(gradlefile)):
                 # print('file  {0}  exists '.format(gradlefile))
                 replace(gradlefile,REPLACEMENT_DICT_3)
+
 
 
 def main():
