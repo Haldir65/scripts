@@ -32,10 +32,10 @@ GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org
 
 
 COMPILESDK_PATTERN="compileSdkVersion"
-COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 28"
+COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 29"
 
 BUILD_TOOLS_PATTERN="buildToolsVersion"
-BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '28.0.3'"
+BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '29.0.3'"
 
 COMPILE_SUPPORT_V7_PATTERN="com.android.support:appcompat-v7"
 COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT="    implementation 'com.android.support:appcompat-v7:28.0.0'"
