@@ -24,32 +24,56 @@ _yellow() {
     printf '\033[0m'
 }
 
+IGNORE_DIRS=(AwesomeProject C InstantGLSL shadowsocks-android testapplication)
 
 
 _update_all_git_repo_in_curdir(){
-    _green "we will start update all git repo in curdir \n"
+    _green "==we will start update all git repo in curdir ==  \n"
     mydir=`ls`
     for eachfile in $mydir
     do
         if [ -d "$eachfile" ] && [ -d "$eachfile"/.git ]; then
-            cd $eachfile
-            ##git status
-            if [ -z "$(git status --porcelain)" ]; then 
-            # Working directory clean
-                _yellow "nothing has changed in $eachfile\n"
-                git pull
-            else 
-                _red "something has changed in $eachfile\n"
-                git stash
-                git pull
-                git stash pop
-                echo "end of push"
+            if [[ " ${IGNORE_DIRS[@]} " =~ " ${eachfile} " ]]; then
+                _yellow "== skip directory "${eachfile}" because it was in IGNORE_DIRS\n"
+                 # whatever you want to do when arr contains value
+            else
+                cd $eachfile
+                ##git status
+                _green "== entering "${eachfile}" ====\n"
+                if [ -z "$(git status --porcelain)" ]; then
+                # Working directory clean
+                    _yellow "nothing has changed in $eachfile\n"
+                    git pull
+                else
+                    _red "something has changed in $eachfile\n"
+                    git stash
+                    git pull
+                    git stash pop
+                    echo "end of push"
+                fi
+                _green "== leaving "${eachfile}" ==== \n"
+                cd ..
             fi
-            cd ..
         fi
     done
     _green "completed! \n"
 }
 
 _update_all_git_repo_in_curdir
+# var="name"
+# array=(nam3 name sa name)
+# for i in ${array[@]}
+# do
+#    [ "$i" == "$var" ] && echo "yes"
+# done
 
+# value=nam3
+# if [[ " ${array[@]} " =~ " ${value} " ]]; then
+#     # whatever you want to do when arr contains value
+#     echo "contains "${value}
+# fi
+# value=nsasa
+# if [[ ! " ${array[@]} " =~ " ${value} " ]]; then
+#     echo "not containes arr "$value
+#     # whatever you want to do when arr doesn't contain value
+# fi
