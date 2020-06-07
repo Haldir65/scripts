@@ -24,7 +24,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="ext.kotlin_version = '1.3.72'"
 
 
 GRALDE_PATTERN="com.android.tools.build:gradle"
-GRALDE_PATTERN_REPLACEMENT="        classpath 'com.android.tools.build:gradle:3.6.3'"
+GRALDE_PATTERN_REPLACEMENT="        classpath 'com.android.tools.build:gradle:4.0.0'"
 
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"

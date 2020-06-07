@@ -49,7 +49,7 @@ _maybe_multiple_module(){
 }
 
 ## todo , change to abspath of python source file path
-python3 ~/Documents/github/scripts/python/fuckgradle.py
+python3 fuckgradle.py
 TARGET=app/build.gradle
 if [ -f $TARGET ];then
    echo "sed start"
