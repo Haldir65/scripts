@@ -5,6 +5,7 @@ import logging ,os , fileinput
 from tempfile import mkstemp
 from shutil import move, copymode
 from os import fdopen, remove
+import re
 # create logger
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -20,7 +21,7 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="ext.kotlin_version = '1.3.72'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.3.72'"
 
 
 GRALDE_PATTERN="com.android.tools.build:gradle"
@@ -38,16 +39,16 @@ BUILD_TOOLS_PATTERN="buildToolsVersion"
 BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '29.0.3'"
 
 COMPILE_SUPPORT_V7_PATTERN="com.android.support:appcompat-v7"
-COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT="    implementation 'com.android.support:appcompat-v7:28.0.0'"
+COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT="        implementation 'com.android.support:appcompat-v7:28.0.0'"
 
 COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN="com.android.support:recyclerview-v7"
-COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT="    implementation 'com.android.support:recyclerview-v7:28.0.0'"
+COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT="        implementation 'com.android.support:recyclerview-v7:28.0.0'"
 
 CONSTRAINT_LAYOUT="com.android.support.constraint:constraint-layout"
 CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'com.android.support.constraint:constraint-layout:1.1.3'"
 
 GLIDE_PATTERN="com.github.bumptech.glide:glide"
-GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.7.1'"
+GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.11.0'"
 
 OKHTTP3_PATTERN="com.squareup.okhttp3:okhttp:"
 OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:3.11.0'"
