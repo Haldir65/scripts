@@ -10,3 +10,11 @@ set -e
 
 ##对每一个文件夹进行操作
 ##for i in `ls -d */`; do echo ${i} && cd ${i} && fuckgradle.sh && cd ..;done
+
+#!/bin/bash
+# declare an array called array and define 3 vales
+# array=( one two three )
+# for i in "${array[@]}"
+# do
+# 	echo $i
+# done
