@@ -21,7 +21,7 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.3.72'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.10'"
 
 
 GRALDE_PATTERN="com.android.tools.build:gradle"
@@ -33,10 +33,10 @@ GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org
 
 
 COMPILESDK_PATTERN="compileSdkVersion"
-COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 29"
+COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 30"
 
 BUILD_TOOLS_PATTERN="buildToolsVersion"
-BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '29.0.3'"
+BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '30.0.2'"
 
 COMPILE_SUPPORT_V7_PATTERN="com.android.support:appcompat-v7"
 COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT="        implementation 'com.android.support:appcompat-v7:28.0.0'"
@@ -77,7 +77,11 @@ JUNIT_PATTER="junit:junit:"
 JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13'"
 
 ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
-ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.1.0'"
+ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.2.0'"
+
+GOOGLE_MATERIAL="com.google.android.material:material"
+GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.2.1'"
+
 
 
 REPLACEMENT_DICT_1 = {EXT_KOTLIN_PATTERN:EXT_KOTLIN_PATTERN_REPLACEMENT
@@ -91,6 +95,7 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     COMPILE_SUPPORT_V7_PATTERN:COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT,
     CONSTRAINT_LAYOUT:CONSTRAINT_LAYOUT_REPLACEMENT,
     ANDROIDX_APPCOMPAT:ANDROIDX_APPCOMPAT_REPLACEMENT,
+    GOOGLE_MATERIAL:GOOGLE_MATERIAL_REPLACEMENT,
     JUNIT_PATTER:JUNIT_PATTER_REPLACE_MENT,
     TEST_RUNNNER_PATTERN:TEST_RUNNNER_PATTERN_REPLACEMENT,
     TEST_ESPRESSO_PATTERN:TEST_ESPRESSO_PATTERN_REPLACEMENT,
