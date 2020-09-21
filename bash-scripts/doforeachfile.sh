@@ -2,6 +2,20 @@
 #!/bin/bash
 set -e
 
+echo "usage : bash $0 /abs/path/of/bash/script or command"
+
+function entrance(){
+    kcommand=$1
+    for i in `ls -d */`; 
+        do cd ${i} 
+        $kcommand
+        cd -;
+    done
+}
+
+entrance $1
+
+
 ## for directory
 #for i in `ls -d */`; do cd ${i} && fuckgradle.sh && cd ..;done
 
