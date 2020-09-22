@@ -70,7 +70,7 @@ TEST_RUNNNER_PATTERN="com.android.support.test:runner"
 TEST_RUNNNER_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test:runner:1.0.2'"
 
 TEST_ESPRESSO_PATTERN="com.android.support.test.espresso:espresso-core"
-TEST_ESPRESSO_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'"
+TEST_ESPRESSO_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.3.0'"
 
 ANDROID_SUPPORT_DESIGN_PATTERN="com.android.support:design:"
 ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT="    implementation 'com.android.support:design:28.0.0'"
@@ -88,6 +88,9 @@ ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat
 
 GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.2.1'"
+
+KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
+KOTLINX_COROUTINE_PATTERN_replacement="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'"
 
 
 
