@@ -128,8 +128,8 @@ def joinStrings(num_space):
 def replace(file_path, userdict):
     #Create temp file
     fh, abs_path = mkstemp()
-    with fdopen(fh,'w') as new_file:
-        with open(file_path) as old_file:
+    with fdopen(fh,'w',encoding='utf-8') as new_file:
+        with open(file_path,'r',encoding='utf-8') as old_file:
             keys = userdict.keys()
             for line in old_file:
                 found = False
