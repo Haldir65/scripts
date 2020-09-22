@@ -25,7 +25,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.10'"
 
 
 GRALDE_PATTERN="com.android.tools.build:gradle"
-GRALDE_PATTERN_REPLACEMENT="        classpath 'com.android.tools.build:gradle:4.0.0'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.0.0'"
 
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
@@ -37,6 +37,9 @@ COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 30"
 
 BUILD_TOOLS_PATTERN="buildToolsVersion"
 BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '30.0.2'"
+
+DNK_PATTERN = "ndkVersion"
+NDK_PATTERN_REPLACEMENT = "ndkVersion '21.3.6528147'"
 
 COMPILE_SUPPORT_V7_PATTERN="com.android.support:appcompat-v7"
 COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT="        implementation 'com.android.support:appcompat-v7:28.0.0'"
@@ -111,9 +114,16 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN:COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT,
     GRALDE_PATTERN:GRALDE_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_DESIGN_PATTERN:ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT,
-    ANDROID_SUPPORT_V4_PATTERN:ANDROID_SUPPORT_V4_REPLACEMENT
+    ANDROID_SUPPORT_V4_PATTERN:ANDROID_SUPPORT_V4_REPLACEMENT,
+    DNK_PATTERN:NDK_PATTERN_REPLACEMENT,
     }
 
+
+def joinStrings(num_space):
+    r = ''
+    for i in range(0,num_space):
+        r +=(' ')
+    return r    
 
 def replace(file_path, userdict):
     #Create temp file
@@ -125,7 +135,9 @@ def replace(file_path, userdict):
                 found = False
                 for key in keys:
                     if key in line :
-                        new_file.write(userdict[key])
+                        white_space_num = line.index(line.lstrip())
+                        content_tow_write = joinStrings(white_space_num)+userdict[key].lstrip()
+                        new_file.write(content_tow_write)
                         new_file.write('\n')
                         # print ('found key  {0}, replace with {1}'.format(key , userdict[key]))
                         found = True
@@ -160,6 +172,20 @@ def filter_app_build_gradle():
     replace(APP_BUILD_GRADLE_FILE,REPLACEMENT_DICT_3)
     print("start==")
 
+def handle_one_android_app(dirPath):
+    gradlefile = os.path.join(dirPath,"build.gradle")
+    gradle_wrapper_file = os.path.join(dirPath,"gradle/wrapper/gradle-wrapper.properties")
+    inner_gradle_file = os.path.join(dirPath,"app/build.gradle")
+    if(os.path.exists(gradlefile)):
+        # print('file  {0}  exists '.format(gradlefile))
+        replace(gradlefile,REPLACEMENT_DICT_1)
+    if(os.path.exists(gradle_wrapper_file)):
+        # print('file  {0}  exists '.format(gradlefile))
+        replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
+    if(os.path.exists(inner_gradle_file)):
+        # print('file  {0}  exists '.format(gradlefile))
+        replace(inner_gradle_file,REPLACEMENT_DICT_3)   
+
 
 def maybe_multiple_module():
     dirs = os.listdir()
@@ -168,13 +194,14 @@ def maybe_multiple_module():
         abspath = os.path.join(pwd,file)
         if (os.path.isdir(file) and os.path.exists(abspath)):
             gradlefile = os.path.join(abspath,"build.gradle")
-            if(os.path.exists(gradlefile)):
-                # print('file  {0}  exists '.format(gradlefile))
-                replace(gradlefile,REPLACEMENT_DICT_3)
             gradle_wrapper_file = os.path.join(abspath,"gradle/wrapper/gradle-wrapper.properties")
-            if(os.path.exists(gradle_wrapper_file)):
-                # print('file  {0}  exists '.format(gradlefile))
-                replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
+            if(os.path.exists(gradlefile) or os.path.exists(gradle_wrapper_file)):
+                handle_one_android_app(abspath)
+            #     # print('file  {0}  exists '.format(gradlefile))
+            #     replace(gradlefile,REPLACEMENT_DICT_3)
+            # if(os.path.exists(gradle_wrapper_file)):
+            #     # print('file  {0}  exists '.format(gradlefile))
+            #     replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
 
 
 def main():
