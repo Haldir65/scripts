@@ -53,6 +53,9 @@ CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'com.android.support.constrain
 GLIDE_PATTERN="com.github.bumptech.glide:glide"
 GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.11.0'"
 
+GLIDE_COMPILER="com.github.bumptech.glide:compiler"
+GLIDE_COMPILER_REPLACEMENT="annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'"
+
 OKHTTP3_PATTERN="com.squareup.okhttp3:okhttp:"
 OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:3.11.0'"
 
@@ -91,6 +94,9 @@ GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:mat
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_replacement="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'"
+
+ANDROID_KTX_PATTERN="androidx.core:core-ktx"
+ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.3.1'"
 
 
 
