@@ -75,6 +75,13 @@ TEST_RUNNNER_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.sup
 TEST_ESPRESSO_PATTERN="com.android.support.test.espresso:espresso-core"
 TEST_ESPRESSO_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.3.0'"
 
+TEST_ESPRESSO_PATTERN_X="androidx.test.espresso:espresso-core"
+TEST_ESPRESSO_PATTERN_X_REPLACEMENT="androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'"
+
+
+TEST_JUNIT_PATTERN="androidx.test.ext:junit"
+TEST_JUNIT_PATTERN_REPLACEMENT="androidTestImplementation 'androidx.test.ext:junit:1.1.2'"
+
 ANDROID_SUPPORT_DESIGN_PATTERN="com.android.support:design:"
 ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT="    implementation 'com.android.support:design:28.0.0'"
 
@@ -125,6 +132,8 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_DESIGN_PATTERN:ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_V4_PATTERN:ANDROID_SUPPORT_V4_REPLACEMENT,
     DNK_PATTERN:NDK_PATTERN_REPLACEMENT,
+    TEST_ESPRESSO_PATTERN_X,TEST_ESPRESSO_PATTERN_X_REPLACEMENT,
+    TEST_JUNIT_PATTERN,TEST_JUNIT_PATTERN_REPLACEMENT
     }
 
 
