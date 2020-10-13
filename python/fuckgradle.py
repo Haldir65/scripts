@@ -25,11 +25,11 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.10'"
 
 
 GRALDE_PATTERN="com.android.tools.build:gradle"
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.0.0'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.1.0'"
 
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
-GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-6.2-bin.zip"
+GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-6.5-bin.zip"
 
 
 COMPILESDK_PATTERN="compileSdkVersion"
@@ -91,7 +91,7 @@ ANDROID_SUPPORT_V4_REPLACEMENT="    implementation 'com.android.support:support-
 
 
 JUNIT_PATTER="junit:junit:"
-JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13'"
+JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13.1'"
 
 ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
 ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.2.0'"
@@ -103,7 +103,7 @@ KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_replacement="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'"
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
-ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.3.1'"
+ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.3.2'"
 
 
 
