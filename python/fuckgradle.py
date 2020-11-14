@@ -25,7 +25,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.10'"
 
 
 GRALDE_PATTERN="com.android.tools.build:gradle"
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.1.0'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.1.1'"
 
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
@@ -52,7 +52,7 @@ RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview
 
 
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
-CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'"
+CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'"
 
 
 
