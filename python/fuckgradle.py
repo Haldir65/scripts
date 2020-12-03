@@ -21,7 +21,7 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.10'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.20'"
 
 
 GRALDE_PATTERN="com.android.tools.build:gradle"
