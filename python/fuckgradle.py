@@ -21,7 +21,7 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.20'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.21'"
 
 
 GRALDE_PATTERN="com.android.tools.build:gradle"
@@ -36,7 +36,7 @@ COMPILESDK_PATTERN="compileSdkVersion"
 COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 30"
 
 BUILD_TOOLS_PATTERN="buildToolsVersion"
-BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '30.0.2'"
+BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '30.0.3'"
 
 DNK_PATTERN = "ndkVersion"
 NDK_PATTERN_REPLACEMENT = "ndkVersion '21.3.6528147'"
@@ -91,6 +91,12 @@ TEST_JUNIT_PATTERN_REPLACEMENT="androidTestImplementation 'androidx.test.ext:jun
 
 ANDROID_SUPPORT_DESIGN_PATTERN="com.android.support:design:"
 ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT="    implementation 'com.android.support:design:28.0.0'"
+
+ANDROID_SUPPORT_GRIDLAYOUT_PATTERN="com.android.support:gridlayout-v7"
+ANDROID_SUPPORT_GRIDLAYOUT_PATTERN_REPLACEMENT="    implementation 'com.android.support:gridlayout-v7:28.0.0'"
+
+ANDROID_SUPPORT_PALETTE_PATTERN="com.android.support:palette-v7"
+ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT="    implementation 'com.android.support:palette-v7:28.0.0'"
 
 
 ANDROID_SUPPORT_V4_PATTERN="com.android.support:support-v4:"
@@ -150,15 +156,18 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     TEST_ESPRESSO_PATTERN_X:TEST_ESPRESSO_PATTERN_X_REPLACEMENT,
     TEST_JUNIT_PATTERN:TEST_JUNIT_PATTERN_REPLACEMENT,
     ANDROID_KTX_PATTERN:ANDROID_KTX_PATTERN_REPLACEMENT,
-    KOTLINX_COROUTINE_PATTERN:KOTLINX_COROUTINE_PATTERN_REPLACEMENT
+    KOTLINX_COROUTINE_PATTERN:KOTLINX_COROUTINE_PATTERN_REPLACEMENT,
+    ANDROID_SUPPORT_GRIDLAYOUT_PATTERN:ANDROID_SUPPORT_GRIDLAYOUT_PATTERN_REPLACEMENT,
+    ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT
     }
+
 
 
 def joinStrings(num_space):
     r = ''
     for i in range(0,num_space):
         r +=(' ')
-    return r    
+    return r
 
 def replace(file_path, userdict):
     #Create temp file
@@ -219,7 +228,7 @@ def handle_one_android_app(dirPath):
         replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
     if(os.path.exists(inner_gradle_file)):
         # print('file  {0}  exists '.format(gradlefile))
-        replace(inner_gradle_file,REPLACEMENT_DICT_3)   
+        replace(inner_gradle_file,REPLACEMENT_DICT_3)
 
 
 def maybe_multiple_module():
@@ -238,6 +247,17 @@ def maybe_multiple_module():
             #     # print('file  {0}  exists '.format(gradlefile))
             #     replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
 
+def maybe_module_not_called_app():
+    dirs = os.listdir()
+    pwd = os.getcwd()
+    for file in dirs:
+        abspath = os.path.join(pwd,file)
+        if (os.path.isdir(file) and os.path.exists(abspath)):
+            gradlefile = os.path.join(abspath,"build.gradle")
+            if(os.path.exists(gradlefile) ):
+                print ('start processing  {0} '.format(os.path.abspath(gradlefile)))
+                replace(os.path.abspath(gradlefile),REPLACEMENT_DICT_3)
+                print ('end processing  {0} '.format(os.path.abspath(gradlefile)))
 
 def main():
     if(os.path.exists(LARGE_GRADLE_FILE)):
@@ -256,6 +276,7 @@ def main():
         print ('start processing File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"===="))
         filter_app_build_gradle()
     else:
+        maybe_module_not_called_app()    
         print ('File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"not exists"))
     maybe_multiple_module()
 
