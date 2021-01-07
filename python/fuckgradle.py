@@ -6,6 +6,7 @@ from tempfile import mkstemp
 from shutil import move, copymode
 from os import fdopen, remove
 import re
+import mmap
 # create logger
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -26,6 +27,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.21'"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.1.1'"
+
 
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
@@ -79,11 +81,13 @@ RETROFT_PATTERN_REPLACEMENT="    implementation 'com.squareup.retrofit2:retrofit
 TEST_RUNNNER_PATTERN="com.android.support.test:runner"
 TEST_RUNNNER_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test:runner:1.0.2'"
 
+ESPRESSO_LATEST_VERSION="3.3.0"
+
 TEST_ESPRESSO_PATTERN="com.android.support.test.espresso:espresso-core"
-TEST_ESPRESSO_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.3.0'"
+TEST_ESPRESSO_PATTERN_REPLACEMENT="androidTestImplementation 'com.android.support.test.espresso:espresso-core:${ESPRESSO_LATEST_VERSION}'"
 
 TEST_ESPRESSO_PATTERN_X="androidx.test.espresso:espresso-core"
-TEST_ESPRESSO_PATTERN_X_REPLACEMENT="androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'"
+TEST_ESPRESSO_PATTERN_X_REPLACEMENT="androidTestImplementation 'androidx.test.espresso:espresso-core:${ESPRESSO_LATEST_VERSION}'"
 
 
 TEST_JUNIT_PATTERN="androidx.test.ext:junit"
@@ -142,7 +146,6 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     CARD_VIEW_PATTERN:CARD_VIEW_PATTERN_REPLACEMENT,
     JUNIT_PATTER:JUNIT_PATTER_REPLACE_MENT,
     TEST_RUNNNER_PATTERN:TEST_RUNNNER_PATTERN_REPLACEMENT,
-    TEST_ESPRESSO_PATTERN:TEST_ESPRESSO_PATTERN_REPLACEMENT,
     GLIDE_PATTERN:GLIDE_PATTERN_REPLACEMENT,
     OKHTTP3_PATTERN:OKHTTP3_PATTERN_REPLACEMENT,
     RXJAVA_PATTERN:RXJAVA_PATTERN_REPLACEMENT,
@@ -153,7 +156,6 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_DESIGN_PATTERN:ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_V4_PATTERN:ANDROID_SUPPORT_V4_REPLACEMENT,
     DNK_PATTERN:NDK_PATTERN_REPLACEMENT,
-    TEST_ESPRESSO_PATTERN_X:TEST_ESPRESSO_PATTERN_X_REPLACEMENT,
     TEST_JUNIT_PATTERN:TEST_JUNIT_PATTERN_REPLACEMENT,
     ANDROID_KTX_PATTERN:ANDROID_KTX_PATTERN_REPLACEMENT,
     KOTLINX_COROUTINE_PATTERN:KOTLINX_COROUTINE_PATTERN_REPLACEMENT,
@@ -161,6 +163,32 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT
     }
 
+def ndkVersionMissing(file_path):
+    with open(file_path, 'rb', 0) as file,\
+        mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
+        if (s.find(b'defaultConfig') != -1 and s.find(b'ndkVersion') == -1):
+            return True
+        else:
+            return False    
+
+## if(file_path.__contains__("gradle")):
+ ##       print ('required ndkversion {0} for file {1} '.format(ndkVersionMissing(file_path),file_path))            
+
+
+def workAroundForAndroidTestExcludeLine(oldLine):
+    match_dict = {TEST_ESPRESSO_PATTERN: TEST_ESPRESSO_PATTERN_REPLACEMENT,
+        TEST_ESPRESSO_PATTERN_X:TEST_ESPRESSO_PATTERN_X_REPLACEMENT}
+    if oldLine.endswith('{\n') and "(" and ","  and (TEST_ESPRESSO_PATTERN or TEST_ESPRESSO_PATTERN_X) in oldLine: #  androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        latest_version = ESPRESSO_LATEST_VERSION
+        startIndex = oldLine.index(':')
+        endIndex = oldLine.rindex("'")
+        newLine = latest_version.join([oldLine[:startIndex+1],oldLine[endIndex:]])
+        newLine = newLine.replace("androidTestCompile", "androidTestImplementation")
+        #print("we take special care for espresso ,replace  line {0} to {1}".format(oldLine,newLine))
+        # print("{0} workaroundFor AndroidTestExclude end!".format(oldLine));
+        return newLine ,True
+    else:
+        return oldLine ,False   
 
 
 def joinStrings(num_space):
@@ -189,6 +217,12 @@ def replace(file_path, userdict):
                     else:
                         pass
                         # print("failed to found {0} in {1} ".format(key, line))
+                if not found:
+                    # print("not found at line {0}".format(line))
+                    exludePattern ,foundExclude = workAroundForAndroidTestExcludeLine(line)
+                    if foundExclude:
+                        new_file.write(exludePattern)
+                        found = True
                 if not found:
                     new_file.write(line)
 
@@ -229,6 +263,7 @@ def handle_one_android_app(dirPath):
     if(os.path.exists(inner_gradle_file)):
         # print('file  {0}  exists '.format(gradlefile))
         replace(inner_gradle_file,REPLACEMENT_DICT_3)
+
 
 
 def maybe_multiple_module():
@@ -279,6 +314,7 @@ def main():
         maybe_module_not_called_app()    
         print ('File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"not exists"))
     maybe_multiple_module()
+    print("add {0} to defaultConfig block manually if you like ".format(NDK_PATTERN_REPLACEMENT))
 
 
 if __name__ == "__main__":
