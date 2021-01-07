@@ -163,21 +163,19 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT
     }
 
-def ndkVersionMissing(file_path):
+def ndkVersionIsMissingInDefaultConfig(file_path):
     with open(file_path, 'rb', 0) as file,\
         mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
-        if (s.find(b'defaultConfig') != -1 and s.find(b'ndkVersion') == -1):
+        if (s.find(b'defaultConfig') != -1 and s.find(b'ndkVersion') == -1 and s.find(b'CMakeLists.txt') !=-1):
             return True
         else:
-            return False    
+            return False
 
 ## if(file_path.__contains__("gradle")):
  ##       print ('required ndkversion {0} for file {1} '.format(ndkVersionMissing(file_path),file_path))            
 
 
 def workAroundForAndroidTestExcludeLine(oldLine):
-    match_dict = {TEST_ESPRESSO_PATTERN: TEST_ESPRESSO_PATTERN_REPLACEMENT,
-        TEST_ESPRESSO_PATTERN_X:TEST_ESPRESSO_PATTERN_X_REPLACEMENT}
     if oldLine.endswith('{\n') and "(" and ","  and (TEST_ESPRESSO_PATTERN or TEST_ESPRESSO_PATTERN_X) in oldLine: #  androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         latest_version = ESPRESSO_LATEST_VERSION
         startIndex = oldLine.index(':')
@@ -200,6 +198,7 @@ def joinStrings(num_space):
 def replace(file_path, userdict):
     #Create temp file
     fh, abs_path = mkstemp()
+    needInsetNdkVersion = ndkVersionIsMissingInDefaultConfig(file_path)
     with fdopen(fh,'w',encoding='utf-8') as new_file:
         with open(file_path,'r',encoding='utf-8') as old_file:
             keys = userdict.keys()
@@ -208,8 +207,8 @@ def replace(file_path, userdict):
                 for key in keys:
                     if key in line :
                         white_space_num = line.index(line.lstrip())
-                        content_tow_write = joinStrings(white_space_num)+userdict[key].lstrip()
-                        new_file.write(content_tow_write)
+                        content_to_write = joinStrings(white_space_num)+userdict[key].lstrip()
+                        new_file.write(content_to_write)
                         new_file.write('\n')
                         # print ('found key  {0}, replace with {1}'.format(key , userdict[key]))
                         found = True
@@ -223,6 +222,14 @@ def replace(file_path, userdict):
                     if foundExclude:
                         new_file.write(exludePattern)
                         found = True
+                    if needInsetNdkVersion and "versionCode" in line:
+                        new_file.write(line)
+                        white_space_num = line.index(line.lstrip())
+                        content_to_write = joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
+                        new_file.write(content_to_write)
+                        new_file.write('\n')
+                        print("add {0} to defaultConfig block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
+                        found = True;
                 if not found:
                     new_file.write(line)
 
@@ -314,7 +321,6 @@ def main():
         maybe_module_not_called_app()    
         print ('File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"not exists"))
     maybe_multiple_module()
-    print("add {0} to defaultConfig block manually if you like ".format(NDK_PATTERN_REPLACEMENT))
 
 
 if __name__ == "__main__":
