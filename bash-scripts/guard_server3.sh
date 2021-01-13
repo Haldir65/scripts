@@ -38,5 +38,11 @@ function main(){
     _red "yes imported is working\n"
 }
 
+function _batch_set_add(){
+    ipset create spambots iphash
+    iptables -A INPUT -m set --match-set spambots src -j DROP
+    while read ip; do ipset add spambots "$ip"; done < ip_addresses.txt
+}
+
 
 main
