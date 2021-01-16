@@ -198,7 +198,7 @@ def joinStrings(num_space):
 def replace(file_path, userdict):
     #Create temp file
     fh, abs_path = mkstemp()
-    needInsetNdkVersion = ndkVersionIsMissingInDefaultConfig(file_path)
+    needInsertNdkVersion = ndkVersionIsMissingInDefaultConfig(file_path)
     with fdopen(fh,'w',encoding='utf-8') as new_file:
         with open(file_path,'r',encoding='utf-8') as old_file:
             keys = userdict.keys()
@@ -222,13 +222,13 @@ def replace(file_path, userdict):
                     if foundExclude:
                         new_file.write(exludePattern)
                         found = True
-                    if needInsetNdkVersion and "versionCode" in line:
+                    if needInsertNdkVersion and "compileSdkVersion" in line:
                         new_file.write(line)
                         white_space_num = line.index(line.lstrip())
                         content_to_write = joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
                         new_file.write(content_to_write)
                         new_file.write('\n')
-                        print("add {0} to defaultConfig block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
+                        print("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
                         found = True;
                 if not found:
                     new_file.write(line)
