@@ -26,7 +26,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.21'"
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.1.1'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.1.2'"
 
 
 
