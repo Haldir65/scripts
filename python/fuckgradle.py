@@ -163,6 +163,14 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT
     }
 
+def text_file_contains_keywords(file_abspath,keywords):
+    with open(file_abspath,"r") as f:
+        content = f.read()
+        for kwd in keywords:
+            if not kwd in content:
+                return False
+        return True
+
 def ndkVersionIsMissingInDefaultConfig(file_path):
     with open(file_path, 'rb', 0) as file,\
         mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
@@ -172,7 +180,7 @@ def ndkVersionIsMissingInDefaultConfig(file_path):
             return False
 
 ## if(file_path.__contains__("gradle")):
- ##       print ('required ndkversion {0} for file {1} '.format(ndkVersionMissing(file_path),file_path))            
+ ##       print ('required ndkversion {0} for file {1} '.format(ndkVersionMissing(file_path),file_path))
 
 
 def workAroundForAndroidTestExcludeLine(oldLine):
@@ -186,7 +194,7 @@ def workAroundForAndroidTestExcludeLine(oldLine):
         # print("{0} workaroundFor AndroidTestExclude end!".format(oldLine));
         return newLine ,True
     else:
-        return oldLine ,False   
+        return oldLine ,False
 
 
 def joinStrings(num_space):
@@ -263,14 +271,21 @@ def handle_one_android_app(dirPath):
     inner_gradle_file = os.path.join(dirPath,"app/build.gradle")
     if(os.path.exists(gradlefile)):
         # print('file  {0}  exists '.format(gradlefile))
-        replace(gradlefile,REPLACEMENT_DICT_1)
+        ## 1. this is a module fo android application
+        if(text_file_contains_keywords(gradlefile,["com.android.application","dependencies"])):
+            replace(gradlefile,REPLACEMENT_DICT_3)
+        ## 2. this is a  module for android library
+        elif(text_file_contains_keywords(gradlefile,["com.android.library","dependencies"])):
+            replace(gradlefile,REPLACEMENT_DICT_3)
+        ## 3. this is an large android build.gradle file
+        elif (text_file_contains_keywords(gradlefile,["buildscript","allprojects"])):
+            replace(gradlefile,REPLACEMENT_DICT_1)
     if(os.path.exists(gradle_wrapper_file)):
         # print('file  {0}  exists '.format(gradlefile))
         replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
     if(os.path.exists(inner_gradle_file)):
         # print('file  {0}  exists '.format(gradlefile))
         replace(inner_gradle_file,REPLACEMENT_DICT_3)
-
 
 
 def maybe_multiple_module():
@@ -302,24 +317,29 @@ def maybe_module_not_called_app():
                 print ('end processing  {0} '.format(os.path.abspath(gradlefile)))
 
 def main():
+    ## 1. process large build.gradle file
     if(os.path.exists(LARGE_GRADLE_FILE)):
         print ('start processing File {0} {1}'.format(LARGE_GRADLE_FILE,"===="))
         filter_large_gradle()
     else:
         print ('File {0} {1}'.format(LARGE_GRADLE_FILE,"not exists"))
 
+    ### 2. process gradle-warpper.properities file
     if(os.path.exists(GRADLE_WRAPPER_FILES)):
         print ('start processing File {0} {1}'.format(GRADLE_WRAPPER_FILES,"===="))
         filter_gradle_wrapper()
     else:
         print ('File {0} {1}'.format(GRADLE_WRAPPER_FILES,"not exists"))
 
+    ### 3. process app/build.gradle file
     if(os.path.exists(APP_BUILD_GRADLE_FILE)):
         print ('start processing File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"===="))
         filter_app_build_gradle()
     else:
-        maybe_module_not_called_app()    
+        maybe_module_not_called_app()
         print ('File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"not exists"))
+
+    ### 4. may be there are more than one build.gradle file, for instance, on build.gradle file per module
     maybe_multiple_module()
 
 
