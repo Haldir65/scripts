@@ -48,8 +48,16 @@ _maybe_multiple_module(){
     done
 }
 
+
+echo "The script you are running has basename `basename "$0"`, dirname `dirname "$0"`"
+echo "The present working directory is `pwd`"
+THE_DIR_CONTAINING_THIS_SCRIPT=`dirname "$0"`
+parentdir="$(dirname "$THE_DIR_CONTAINING_THIS_SCRIPT")"
+
 ## todo , change to abspath of python source file path
-python3 fuckgradle.py
+python3 $parentdir/python/fuckgradle.py
+
+
 TARGET=app/build.gradle
 if [ -f $TARGET ];then
    echo "sed start"

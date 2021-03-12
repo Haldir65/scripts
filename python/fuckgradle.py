@@ -75,7 +75,7 @@ RX_ANDROID_PATTERN="io.reactivex.rxjava2:rxandroid"
 RX_ANDROID_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'"
 
 RETROFIT_PATTERN="com.squareup.retrofit2:retrofit"
-RETROFT_PATTERN_REPLACEMENT="    implementation 'com.squareup.retrofit2:retrofit:2.5.0'"
+RETROFT_PATTERN_REPLACEMENT="    implementation 'com.squareup.retrofit2:retrofit:2.9.0'"
 
 
 TEST_RUNNNER_PATTERN="com.android.support.test:runner"
@@ -114,10 +114,10 @@ ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
 ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.2.0'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
-GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.2.1'"
+GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.3.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8'"
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.3.2'"
@@ -128,6 +128,14 @@ CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT="implementation 'com.android.support:cardv
 CARD_VIEW_PATTERN="androidx.cardview:cardview"
 CARD_VIEW_PATTERN_REPLACEMENT="    implementation 'androidx.cardview:cardview:1.0.0'"
 
+NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
+NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'"
+
+NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
+NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'"
+
+LIFECYCLE_VIEWMODEL_KTX_PATTERN="androidx.lifecycle:lifecycle-viewmodel-ktx"
+LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'"
 
 REPLACEMENT_DICT_1 = {EXT_KOTLIN_PATTERN:EXT_KOTLIN_PATTERN_REPLACEMENT
             ,GRALDE_PATTERN:GRALDE_PATTERN_REPLACEMENT}
@@ -160,7 +168,10 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROID_KTX_PATTERN:ANDROID_KTX_PATTERN_REPLACEMENT,
     KOTLINX_COROUTINE_PATTERN:KOTLINX_COROUTINE_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_GRIDLAYOUT_PATTERN:ANDROID_SUPPORT_GRIDLAYOUT_PATTERN_REPLACEMENT,
-    ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT
+    ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT,
+    NAVIGATION_FRAGMENT_KTX_PATTERN:NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT,
+    NAVIGATION_UI_KTX_PATTERN:NAVIGATION_UI_KTX_PATTERN_REPLACEMENT,
+    LIFECYCLE_VIEWMODEL_KTX_PATTERN:LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT
     }
 
 def text_file_contains_keywords(file_abspath,keywords):
