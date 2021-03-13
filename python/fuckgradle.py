@@ -164,7 +164,7 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     }
 
 def text_file_contains_keywords(file_abspath,keywords):
-    with open(file_abspath,"r") as f:
+    with open(file_abspath,"r",encoding='utf-8') as f:
         content = f.read()
         for kwd in keywords:
             if not kwd in content:
