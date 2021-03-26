@@ -24,7 +24,28 @@ _yellow() {
     printf '\033[0m'
 }
 
+IGNORE_CONFIG="ignoreFile.txt"
+
 IGNORE_DIRS=(AwesomeProject C InstantGLSL shadowsocks-android testapplication)
+
+# IGNORE_DIRS=()
+
+_find_ignore_projects(){
+    if [ -f $IGNORE_CONFIG ]; then
+        _green "adding ignore file \n"
+        while IFS= read -r line; do 
+            # echo ">>$line<<";
+             IGNORE_DIRS+=($line)
+        done < $IGNORE_CONFIG
+    else
+        _yellow "ignore file not found \n"
+    fi
+
+    for i in "${IGNORE_DIRS[@]}"
+    do
+    echo "ignore $i"
+    done
+}
 
 
 _update_all_git_repo_in_curdir(){
@@ -49,6 +70,7 @@ _update_all_git_repo_in_curdir(){
                     git stash
                     git pull
                     git stash pop
+                    git add .
                     echo "end of push"
                 fi
                 _green "== leaving "${eachfile}" ==== \n"
@@ -59,6 +81,9 @@ _update_all_git_repo_in_curdir(){
     _green "completed! \n"
 }
 
+
+
+_find_ignore_projects
 _update_all_git_repo_in_curdir
 # var="name"
 # array=(nam3 name sa name)
