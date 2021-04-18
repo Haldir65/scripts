@@ -140,38 +140,20 @@ LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle
 lifecycle_version = "2.3.1"
 arch_version = "2.1.0"
 
+
 LIFECYCLE_VIEWMODEL_PATTERN="androidx.lifecycle:lifecycle-viewmodel"
-LIFECYCLE_VIEWMODEL_PATTERN_REPLACE_MENT="androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+LIFECYCLE_VIEWMODEL_PATTERN_REPLACE_MENT="androidx.lifecycle:lifecycle-viewmodel:${lifecycle_version}"
 
- def lifecycle_version = "2.3.1"
-    def arch_version = "2.1.0"
+LIFECYCLE_LIVE_DATA_PATTERN="androidx.lifecycle:lifecycle-livedata"
+LIFECYCLE_LIVE_DATA_PATTERN_REPLACE_MENT="androidx.lifecycle:lifecycle-livedata:${lifecycle_version}"
 
-    // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
-    // LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
-    // Lifecycles only (without ViewModel or LiveData)
-    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+LIFECYCLE_RUNTIME_PATTERN="androidx.lifecycle:lifecycle-runtime"
+LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT="androidx.lifecycle:lifecycle-runtime:${lifecycle_version}"
 
-    // Saved state module for ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+LIFECYCLE_SM_SAVED_STATE_PATTERN="androidx.lifecycle:lifecycle-runtime"
+LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="androidx.lifecycle:lifecycle-viewmodel-savedstate:${lifecycle_version}"
 
-    // Annotation processor
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
-    // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
-    // optional - helpers for implementing LifecycleOwner in a Service
-    implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
-
-    // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
-    implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
-
-    // optional - ReactiveStreams support for LiveData
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"
-
-    // optional - Test helpers for LiveData
-    testImplementation "androidx.arch.core:core-testing:$arch_version"
 
 REPLACEMENT_DICT_1 = {EXT_KOTLIN_PATTERN:EXT_KOTLIN_PATTERN_REPLACEMENT
             ,GRALDE_PATTERN:GRALDE_PATTERN_REPLACEMENT}
@@ -207,8 +189,14 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT,
     NAVIGATION_FRAGMENT_KTX_PATTERN:NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT,
     NAVIGATION_UI_KTX_PATTERN:NAVIGATION_UI_KTX_PATTERN_REPLACEMENT,
-    LIFECYCLE_VIEWMODEL_KTX_PATTERN:LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT
+    LIFECYCLE_VIEWMODEL_KTX_PATTERN:LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT,
+    LIFECYCLE_VIEWMODEL_PATTERN:LIFECYCLE_VIEWMODEL_PATTERN_REPLACE_MENT,
+    LIFECYCLE_LIVE_DATA_PATTERN:LIFECYCLE_LIVE_DATA_PATTERN_REPLACE_MENT,
+    LIFECYCLE_RUNTIME_PATTERN:LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT
+    LIFECYCLE_SM_SAVED_STATE_PATTERN:LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT
     }
+
+
 
 def text_file_contains_keywords(file_abspath,keywords):
     with open(file_abspath,"r",encoding='utf-8') as f:
