@@ -50,7 +50,7 @@ COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN="com.android.support:recyclerview-v7"
 COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT="        implementation 'com.android.support:recyclerview-v7:28.0.0'"
 
 RECYCLERVIEW_PATTERN_ANDROIDX="androidx.recyclerview:recyclerview"
-RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.1.0'"
+RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.2.0'"
 
 
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
@@ -84,10 +84,10 @@ TEST_RUNNNER_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.sup
 ESPRESSO_LATEST_VERSION="3.3.0"
 
 TEST_ESPRESSO_PATTERN="com.android.support.test.espresso:espresso-core"
-TEST_ESPRESSO_PATTERN_REPLACEMENT="androidTestImplementation 'com.android.support.test.espresso:espresso-core:${ESPRESSO_LATEST_VERSION}'"
+TEST_ESPRESSO_PATTERN_REPLACEMENT="androidTestImplementation 'com.android.support.test.espresso:espresso-core:{0}'".format(ESPRESSO_LATEST_VERSION)
 
 TEST_ESPRESSO_PATTERN_X="androidx.test.espresso:espresso-core"
-TEST_ESPRESSO_PATTERN_X_REPLACEMENT="androidTestImplementation 'androidx.test.espresso:espresso-core:${ESPRESSO_LATEST_VERSION}'"
+TEST_ESPRESSO_PATTERN_X_REPLACEMENT="androidTestImplementation 'androidx.test.espresso:espresso-core:{0}'".format(ESPRESSO_LATEST_VERSION)
 
 
 TEST_JUNIT_PATTERN="androidx.test.ext:junit"
@@ -108,7 +108,7 @@ ANDROID_SUPPORT_V4_REPLACEMENT="    implementation 'com.android.support:support-
 
 
 JUNIT_PATTER="junit:junit:"
-JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13.1'"
+JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13.2'"
 
 ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
 ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.2.0'"
@@ -142,16 +142,18 @@ arch_version = "2.1.0"
 
 
 LIFECYCLE_VIEWMODEL_PATTERN="androidx.lifecycle:lifecycle-viewmodel"
-LIFECYCLE_VIEWMODEL_PATTERN_REPLACE_MENT="androidx.lifecycle:lifecycle-viewmodel:${lifecycle_version}"
+LIFECYCLE_VIEWMODEL_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel:{0}'".format(lifecycle_version)
 
 LIFECYCLE_LIVE_DATA_PATTERN="androidx.lifecycle:lifecycle-livedata"
-LIFECYCLE_LIVE_DATA_PATTERN_REPLACE_MENT="androidx.lifecycle:lifecycle-livedata:${lifecycle_version}"
+LIFECYCLE_LIVE_DATA_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-livedata:{0}'".format(lifecycle_version)
 
 LIFECYCLE_RUNTIME_PATTERN="androidx.lifecycle:lifecycle-runtime"
-LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT="androidx.lifecycle:lifecycle-runtime:${lifecycle_version}"
+LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-runtime:{0}'".format(lifecycle_version)
 
 LIFECYCLE_SM_SAVED_STATE_PATTERN="androidx.lifecycle:lifecycle-runtime"
-LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="androidx.lifecycle:lifecycle-viewmodel-savedstate:${lifecycle_version}"
+LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:{0}'".format(lifecycle_version)
+
+
 
 
 
@@ -192,7 +194,7 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     LIFECYCLE_VIEWMODEL_KTX_PATTERN:LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT,
     LIFECYCLE_VIEWMODEL_PATTERN:LIFECYCLE_VIEWMODEL_PATTERN_REPLACE_MENT,
     LIFECYCLE_LIVE_DATA_PATTERN:LIFECYCLE_LIVE_DATA_PATTERN_REPLACE_MENT,
-    LIFECYCLE_RUNTIME_PATTERN:LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT
+    LIFECYCLE_RUNTIME_PATTERN:LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT,
     LIFECYCLE_SM_SAVED_STATE_PATTERN:LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT
     }
 
