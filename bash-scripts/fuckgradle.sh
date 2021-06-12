@@ -55,10 +55,12 @@ THE_DIR_CONTAINING_THIS_SCRIPT=`dirname "$0"`
 parentdir="$(dirname "$THE_DIR_CONTAINING_THIS_SCRIPT")"
 
 ## todo , change to abspath of python source file path
-#python3 $parentdir/python/fuckgradle.py
+python3 $parentdir/python/fuckgradle.py
 
 
-python /h/program/github/scripts/python/fuckgradle.py
+#python /h/program/github/scripts/python/fuckgradle.py
+#python3 ~/Documents/github/scripts/python/fuckgradle.py
+
 TARGET=app/build.gradle
 if [ -f $TARGET ];then
    echo "sed start"

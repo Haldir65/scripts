@@ -4,10 +4,10 @@ set -e
 
 echo "usage : bash $0 /abs/path/of/bash/script or command"
 
-function entrance(){
+function entrance() {
     kcommand=$1
-    for i in `ls -d */`; 
-        do cd ${i} 
+    for i in `ls -d */`;
+        do cd ${i}
         $kcommand
         cd -;
     done
