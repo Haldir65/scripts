@@ -22,16 +22,17 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.4.32'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.5.10'"
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.1.3'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.2.1'"
 
-
+JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
+JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10'"
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
-GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-6.5-bin.zip"
+GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-6.9-bin.zip"
 
 
 COMPILESDK_PATTERN="compileSdkVersion"
@@ -41,7 +42,7 @@ BUILD_TOOLS_PATTERN="buildToolsVersion"
 BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '30.0.3'"
 
 DNK_PATTERN = "ndkVersion"
-NDK_PATTERN_REPLACEMENT = "ndkVersion '22.0.7026061'"
+NDK_PATTERN_REPLACEMENT = "ndkVersion '22.1.7171670'"
 
 COMPILE_SUPPORT_V7_PATTERN="com.android.support:appcompat-v7"
 COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT="        implementation 'com.android.support:appcompat-v7:28.0.0'"
@@ -158,7 +159,8 @@ LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycl
 
 
 REPLACEMENT_DICT_1 = {EXT_KOTLIN_PATTERN:EXT_KOTLIN_PATTERN_REPLACEMENT
-            ,GRALDE_PATTERN:GRALDE_PATTERN_REPLACEMENT}
+            ,GRALDE_PATTERN:GRALDE_PATTERN_REPLACEMENT,
+            JETBRAIN_GRALDE_PATTERN:JETBRAIN_GRALDE_PATTERN_REPLACEMENT}
 
 
 REPLACEMENT_DICT_2 = {GRADLE_WRAPPER_PATTERN:GRADLE_WRAPPER_PATTERN_REPLACEMENT}
