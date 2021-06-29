@@ -57,7 +57,8 @@ RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
 CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'"
 
-
+ANDROIDX_ANNOTATION_PATTERN="androidx.annotation:annotation"
+ANDROIDX_ANNOTATION_PATTERN_REPLACEMENT="implementation 'androidx.annotation:annotation:1.2.0'"
 
 
 GLIDE_PATTERN="com.github.bumptech.glide:glide"
@@ -112,7 +113,7 @@ JUNIT_PATTER="junit:junit:"
 JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13.2'"
 
 ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
-ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.2.0'"
+ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.3.0'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.3.0'"
@@ -171,6 +172,7 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     RECYCLERVIEW_PATTERN_ANDROIDX:RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT,
     CONSTRAINT_LAYOUT:CONSTRAINT_LAYOUT_REPLACEMENT,
     ANDROIDX_APPCOMPAT:ANDROIDX_APPCOMPAT_REPLACEMENT,
+    ANDROIDX_ANNOTATION_PATTERN:ANDROIDX_ANNOTATION_PATTERN_REPLACEMENT,
     GOOGLE_MATERIAL:GOOGLE_MATERIAL_REPLACEMENT,
     CARD_VIEW_PATTERN_SUPPORT:CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT,
     CARD_VIEW_PATTERN:CARD_VIEW_PATTERN_REPLACEMENT,
