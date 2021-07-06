@@ -222,6 +222,12 @@ def ndkVersionIsMissingInDefaultConfig(file_path):
 
 ## if(file_path.__contains__("gradle")):
  ##       print ('required ndkversion {0} for file {1} '.format(ndkVersionMissing(file_path),file_path))
+def workAroundForAppeningNdkVersion(white_space_num,line,file_path):
+    if("compileSdkVersion" in line):
+        line = ""
+        line = joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
+        print("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
+        return line    
 
 
 def workAroundForAndroidTestExcludeLine(oldLine):
@@ -257,6 +263,10 @@ def replace(file_path, userdict):
                     if key in line :
                         white_space_num = line.index(line.lstrip())
                         content_to_write = joinStrings(white_space_num)+userdict[key].lstrip()
+                        if(needInsertNdkVersion):
+                            appendedContent = workAroundForAppeningNdkVersion(white_space_num,content_to_write,file_path)
+                            if appendedContent:
+                                content_to_write = appendedContent
                         new_file.write(content_to_write)
                         new_file.write('\n')
                         # print ('found key  {0}, replace with {1}'.format(key , userdict[key]))
