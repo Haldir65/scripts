@@ -224,8 +224,7 @@ def ndkVersionIsMissingInDefaultConfig(file_path):
  ##       print ('required ndkversion {0} for file {1} '.format(ndkVersionMissing(file_path),file_path))
 def workAroundForAppeningNdkVersion(white_space_num,line,file_path):
     if("compileSdkVersion" in line):
-        line = ""
-        line = joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
+        line = line + '\n' +joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
         print("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
         return line    
 

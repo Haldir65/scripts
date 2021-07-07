@@ -48,6 +48,31 @@ _maybe_multiple_module(){
     done
 }
 
+_tell_os_type(){
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        _green "linux-gnu\n"
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+            # Mac OSX
+        _green "Mac OSX\n"
+    elif [[ "$OSTYPE" == "cygwin" ]]; then
+            # POSIX compatibility layer and Linux environment emulation for Windows
+        _green "cygwin\n"    
+    elif [[ "$OSTYPE" == "msys" ]]; then
+            # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+        _green "MinGW\n"    
+    elif [[ "$OSTYPE" == "win32" ]]; then
+            # I'm not sure this can happen.
+        _green "win32\n"    
+    elif [[ "$OSTYPE" == "freebsd"* ]]; then
+            # ...
+        _green "freebsd\n"    
+    else
+        _green "UnKnown\n"    
+    fi
+}
+
+
+_tell_os_type
 
 echo "The script you are running has basename `basename "$0"`, dirname `dirname "$0"`"
 echo "The present working directory is `pwd`"
@@ -55,7 +80,13 @@ THE_DIR_CONTAINING_THIS_SCRIPT=`dirname "$0"`
 parentdir="$(dirname "$THE_DIR_CONTAINING_THIS_SCRIPT")"
 
 ## todo , change to abspath of python source file path
-python3 $parentdir/python/fuckgradle.py
+if [ "msys" == $OSTYPE ];then
+    _green "we are running this script on windows, we have a little problem with python3 permission \n"
+    python $parentdir/python/fuckgradle.py
+else
+    _green "we are running this script on  system other than windows $OSTYPE\n"
+    python3 $parentdir/python/fuckgradle.py
+fi
 
 
 #python /h/program/github/scripts/python/fuckgradle.py
