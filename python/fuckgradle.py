@@ -119,7 +119,7 @@ GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.3.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'"
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.3.2'"
@@ -203,6 +203,13 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     }
 
 
+def compat_api_or_implementation(line, newline,filename):
+    if('api' in line):
+        return newline.replace('implementation', 'api')
+    else:
+        return newline
+
+
 
 def text_file_contains_keywords(file_abspath,keywords):
     with open(file_abspath,"r",encoding='utf-8') as f:
@@ -261,7 +268,7 @@ def replace(file_path, userdict):
                 for key in keys:
                     if key in line :
                         white_space_num = line.index(line.lstrip())
-                        content_to_write = joinStrings(white_space_num)+userdict[key].lstrip()
+                        content_to_write = joinStrings(white_space_num)+compat_api_or_implementation(line = line , newline = userdict[key].lstrip(),filename=file_path)
                         if(needInsertNdkVersion):
                             appendedContent = workAroundForAppeningNdkVersion(white_space_num,content_to_write,file_path)
                             if appendedContent:
