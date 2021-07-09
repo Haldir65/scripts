@@ -79,7 +79,7 @@ echo "The present working directory is `pwd`"
 THE_DIR_CONTAINING_THIS_SCRIPT=`dirname "$0"`
 parentdir="$(dirname "$THE_DIR_CONTAINING_THIS_SCRIPT")"
 
-## todo , change to abspath of python source file path
+
 if [ "msys" == $OSTYPE ];then
     _green "we are running this script on windows, we have a little problem with python3 permission \n"
     python $parentdir/python/fuckgradle.py
@@ -89,9 +89,9 @@ else
 fi
 
 
-#python /h/program/github/scripts/python/fuckgradle.py
-#python3 ~/Documents/github/scripts/python/fuckgradle.py
 
+
+python3 ~/Documents/github/scripts/python/fuckgradle.py
 TARGET=app/build.gradle
 if [ -f $TARGET ];then
    echo "sed start"
