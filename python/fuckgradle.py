@@ -26,7 +26,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.5.10'"
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.2.1'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.2.2'"
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10'"
@@ -51,7 +51,7 @@ COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN="com.android.support:recyclerview-v7"
 COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT="        implementation 'com.android.support:recyclerview-v7:28.0.0'"
 
 RECYCLERVIEW_PATTERN_ANDROIDX="androidx.recyclerview:recyclerview"
-RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.2.0'"
+RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.2.1'"
 
 
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
@@ -83,7 +83,7 @@ RETROFT_PATTERN_REPLACEMENT="    implementation 'com.squareup.retrofit2:retrofit
 TEST_RUNNNER_PATTERN="com.android.support.test:runner"
 TEST_RUNNNER_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test:runner:1.0.2'"
 
-ESPRESSO_LATEST_VERSION="3.3.0"
+ESPRESSO_LATEST_VERSION="3.4.0"
 
 TEST_ESPRESSO_PATTERN="com.android.support.test.espresso:espresso-core"
 TEST_ESPRESSO_PATTERN_REPLACEMENT="androidTestImplementation 'com.android.support.test.espresso:espresso-core:{0}'".format(ESPRESSO_LATEST_VERSION)
@@ -93,7 +93,7 @@ TEST_ESPRESSO_PATTERN_X_REPLACEMENT="androidTestImplementation 'androidx.test.es
 
 
 TEST_JUNIT_PATTERN="androidx.test.ext:junit"
-TEST_JUNIT_PATTERN_REPLACEMENT="androidTestImplementation 'androidx.test.ext:junit:1.1.2'"
+TEST_JUNIT_PATTERN_REPLACEMENT="androidTestImplementation 'androidx.test.ext:junit:1.1.3'"
 
 ANDROID_SUPPORT_DESIGN_PATTERN="com.android.support:design:"
 ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT="    implementation 'com.android.support:design:28.0.0'"
@@ -122,13 +122,17 @@ KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'"
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
-ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.3.2'"
+ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.6.0'"
 
 CARD_VIEW_PATTERN_SUPPORT="com.android.support:cardview"
 CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT="implementation 'com.android.support:cardview-v7:28.0.0'"
 
 CARD_VIEW_PATTERN="androidx.cardview:cardview"
 CARD_VIEW_PATTERN_REPLACEMENT="    implementation 'androidx.cardview:cardview:1.0.0'"
+
+FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
+FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.3.5'"
+
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
 NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'"
@@ -194,6 +198,7 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_GRIDLAYOUT_PATTERN:ANDROID_SUPPORT_GRIDLAYOUT_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT,
     NAVIGATION_FRAGMENT_KTX_PATTERN:NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT,
+    FRAGMENT_KTX:FRAGMENT_KTX_REPLACEMENT,
     NAVIGATION_UI_KTX_PATTERN:NAVIGATION_UI_KTX_PATTERN_REPLACEMENT,
     LIFECYCLE_VIEWMODEL_KTX_PATTERN:LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT,
     LIFECYCLE_VIEWMODEL_PATTERN:LIFECYCLE_VIEWMODEL_PATTERN_REPLACE_MENT,
