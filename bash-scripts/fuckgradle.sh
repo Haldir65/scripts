@@ -89,9 +89,6 @@ else
 fi
 
 
-
-
-python3 ~/Documents/github/scripts/python/fuckgradle.py
 TARGET=app/build.gradle
 if [ -f $TARGET ];then
    echo "sed start"
