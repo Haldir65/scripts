@@ -79,6 +79,9 @@ RX_ANDROID_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxandro
 RETROFIT_PATTERN="com.squareup.retrofit2:retrofit"
 RETROFT_PATTERN_REPLACEMENT="    implementation 'com.squareup.retrofit2:retrofit:2.9.0'"
 
+RETROFIT_GSON_PATTERN="com.squareup.retrofit2:converter-gson"
+RETROFT_GSON_PATTERN_REPLACEMENT="implementation 'com.squareup.retrofit2:converter-gson:2.9.0'"
+
 
 TEST_RUNNNER_PATTERN="com.android.support.test:runner"
 TEST_RUNNNER_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test:runner:1.0.2'"
@@ -116,10 +119,10 @@ ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
 ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.3.0'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
-GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.3.0'"
+GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.4.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'"
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.6.0'"
@@ -140,23 +143,23 @@ NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
 NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'"
 
-LIFECYCLE_VIEWMODEL_KTX_PATTERN="androidx.lifecycle:lifecycle-viewmodel-ktx"
-LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'"
 
 lifecycle_version = "2.3.1"
 arch_version = "2.1.0"
 
+LIFECYCLE_VIEWMODEL_KTX_PATTERN="androidx.lifecycle:lifecycle-viewmodel-ktx:"
+LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:{0}'".format(lifecycle_version)
 
-LIFECYCLE_VIEWMODEL_PATTERN="androidx.lifecycle:lifecycle-viewmodel"
+LIFECYCLE_VIEWMODEL_PATTERN="androidx.lifecycle:lifecycle-viewmodel:"
 LIFECYCLE_VIEWMODEL_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel:{0}'".format(lifecycle_version)
 
-LIFECYCLE_LIVE_DATA_PATTERN="androidx.lifecycle:lifecycle-livedata"
+LIFECYCLE_LIVE_DATA_PATTERN="androidx.lifecycle:lifecycle-livedata:"
 LIFECYCLE_LIVE_DATA_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-livedata:{0}'".format(lifecycle_version)
 
-LIFECYCLE_RUNTIME_PATTERN="androidx.lifecycle:lifecycle-runtime"
+LIFECYCLE_RUNTIME_PATTERN="androidx.lifecycle:lifecycle-runtime:"
 LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-runtime:{0}'".format(lifecycle_version)
 
-LIFECYCLE_SM_SAVED_STATE_PATTERN="androidx.lifecycle:lifecycle-runtime"
+LIFECYCLE_SM_SAVED_STATE_PATTERN="androidx.lifecycle:lifecycle-viewmodel-savedstate:"
 LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:{0}'".format(lifecycle_version)
 
 
@@ -187,6 +190,7 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     RXJAVA_PATTERN:RXJAVA_PATTERN_REPLACEMENT,
     RX_ANDROID_PATTERN:RX_ANDROID_PATTERN_REPLACEMENT,
     RETROFIT_PATTERN:RETROFT_PATTERN_REPLACEMENT,
+    RETROFIT_GSON_PATTERN:RETROFT_GSON_PATTERN_REPLACEMENT,
     COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN:COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT,
     GRALDE_PATTERN:GRALDE_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_DESIGN_PATTERN:ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT,
