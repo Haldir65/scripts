@@ -234,21 +234,33 @@ def text_file_contains_keywords(file_abspath,keywords):
                 return False
         return True
 
+def buildToolsVersionIsMissingInandroidBlock(file_path):
+    with open(file_path, 'rb', 0) as file,\
+        mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
+        if (s.find(b'compileSdkVersion') != -1 and s.find(b'buildToolsVersion') == -1 and s.find(b'defaultConfig') !=-1):
+            return True
+        else:
+            return False        
+
 def ndkVersionIsMissingInDefaultConfig(file_path):
     with open(file_path, 'rb', 0) as file,\
         mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
-        if (s.find(b'defaultConfig') != -1 and s.find(b'ndkVersion') == -1 and s.find(b'CMakeLists.txt') !=-1):
+        if (s.find(b'defaultConfig') != -1 and s.find(b'ndkVersion') == -1 and (s.find(b'CMakeLists.txt') !=-1 or s.find(b'externalNativeBuild') !=-1)):
             return True
         else:
             return False
 
 ## if(file_path.__contains__("gradle")):
  ##       print ('required ndkversion {0} for file {1} '.format(ndkVersionMissing(file_path),file_path))
-def workAroundForAppeningNdkVersion(white_space_num,line,file_path):
+def workAroundForAppeningNdkVersion(white_space_num,line,file_path,missingNdk,missingBuildToolVersion):
     if("compileSdkVersion" in line):
-        line = line + '\n' +joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
-        print("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
-        return line
+        if missingNdk:
+            line = line + '\n' +joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
+            print("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
+        if missingBuildToolVersion:
+            line = line + '\n' +joinStrings(white_space_num)+BUILD_TOOLS_PATTERN_REPLACEMENT.lstrip()
+            print("add {0} to android block of file {1} automaticly ".format(BUILD_TOOLS_PATTERN_REPLACEMENT,file_path))
+            return line
 
 
 def workAroundForAndroidTestExcludeLine(oldLine):
@@ -275,6 +287,7 @@ def replace(file_path, userdict):
     #Create temp file
     fh, abs_path = mkstemp()
     needInsertNdkVersion = ndkVersionIsMissingInDefaultConfig(file_path)
+    needInsertbuildToolsVersion = buildToolsVersionIsMissingInandroidBlock(file_path)
     with fdopen(fh,'w',encoding='utf-8') as new_file:
         with open(file_path,'r',encoding='utf-8') as old_file:
             keys = userdict.keys()
@@ -284,8 +297,8 @@ def replace(file_path, userdict):
                     if key in line :
                         white_space_num = line.index(line.lstrip())
                         content_to_write = joinStrings(white_space_num)+compat_api_or_implementation(line = line , newline = userdict[key].lstrip(),filename=file_path)
-                        if(needInsertNdkVersion):
-                            appendedContent = workAroundForAppeningNdkVersion(white_space_num,content_to_write,file_path)
+                        if(needInsertNdkVersion or  needInsertbuildToolsVersion):
+                            appendedContent = workAroundForAppeningNdkVersion(white_space_num,content_to_write,file_path,needInsertNdkVersion,needInsertbuildToolsVersion)
                             if appendedContent:
                                 content_to_write = appendedContent
                         new_file.write(content_to_write)
