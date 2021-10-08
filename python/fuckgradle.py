@@ -7,6 +7,28 @@ from shutil import move, copymode
 from os import fdopen, remove
 import re
 import mmap
+
+## [python print with color](https://stackoverflow.com/a/65860612)
+class colors: # You may need to change color settings
+    RED = '\033[31m'
+    ENDC = '\033[m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+
+def _red(str):
+    print(colors.RED + str + colors.ENDC)
+
+def _green(str):
+    print(colors.GREEN + str + colors.ENDC)
+
+def _yellow(str):
+    print(colors.YELLOW + str + colors.ENDC)
+
+def _blue(str):
+    print(colors.BLUE + str + colors.ENDC)
+
+
 # create logger
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -56,7 +78,7 @@ RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview
 
 
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
-CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'"
+CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'"
 
 CONSTRAINT_LAYOUT_SUPPORT="com.android.support.constraint:constraint-layout"
 CONSTRAINT_LAYOUT_SUPPORT_REPLACEMENT="    implementation 'com.android.support.constraint:constraint-layout:2.0.4'"
@@ -127,7 +149,7 @@ GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.4.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'"
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.6.0'"
@@ -143,10 +165,10 @@ FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.3.5
 
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
-NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'"
+NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'"
 
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
-NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'"
+NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'"
 
 
 lifecycle_version = "2.3.1"
@@ -169,6 +191,10 @@ LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycl
 
 ANDROIDX_ROOM_RUNTIME="androidx.room:room-runtime:"
 ANDROIDX_ROOM_RUNTIME_REPLACE_MENT="implementation 'androidx.room:room-runtime:2.3.0'"
+
+
+EXO_PLAYER_CORE="com.google.android.exoplayer:exoplayer-core:2.10.2"
+EXO_PLAYER_CORE_REPLACE_MENT="implementation 'com.google.android.exoplayer:exoplayer-core:2.15.1'"
 
 
 REPLACEMENT_DICT_1 = {EXT_KOTLIN_PATTERN:EXT_KOTLIN_PATTERN_REPLACEMENT
@@ -217,7 +243,8 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     LIFECYCLE_LIVE_DATA_PATTERN:LIFECYCLE_LIVE_DATA_PATTERN_REPLACE_MENT,
     LIFECYCLE_RUNTIME_PATTERN:LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT,
     LIFECYCLE_SM_SAVED_STATE_PATTERN:LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT,
-    ANDROIDX_ROOM_RUNTIME:ANDROIDX_ROOM_RUNTIME_REPLACE_MENT
+    ANDROIDX_ROOM_RUNTIME:ANDROIDX_ROOM_RUNTIME_REPLACE_MENT,
+    EXO_PLAYER_CORE:EXO_PLAYER_CORE_REPLACE_MENT
     }
 
 
@@ -259,10 +286,10 @@ def workAroundForAppeningNdkVersion(white_space_num,line,file_path,missingNdk,mi
     if("compileSdkVersion" in line):
         if missingNdk:
             line = line + '\n' +joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
-            print("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
+            _green("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
         if missingBuildToolVersion:
             line = line + '\n' +joinStrings(white_space_num)+BUILD_TOOLS_PATTERN_REPLACEMENT.lstrip()
-            print("add {0} to android block of file {1} automaticly ".format(BUILD_TOOLS_PATTERN_REPLACEMENT,file_path))
+            _green("add {0} to android block of file {1} automaticly ".format(BUILD_TOOLS_PATTERN_REPLACEMENT,file_path))
             return line
 
 
@@ -275,6 +302,20 @@ def workAroundForAndroidTestExcludeLine(oldLine):
         newLine = newLine.replace("androidTestCompile", "androidTestImplementation")
         #print("we take special care for espresso ,replace  line {0} to {1}".format(oldLine,newLine))
         # print("{0} workaroundFor AndroidTestExclude end!".format(oldLine));
+        return newLine ,True
+    elif TEST_ESPRESSO_PATTERN in oldLine:
+        latest_version = ESPRESSO_LATEST_VERSION
+        startIndex = oldLine.index(':')
+        endIndex = oldLine.rindex("'")
+        newLine = latest_version.join([oldLine[:startIndex+1],oldLine[endIndex:]])
+        newLine = newLine.replace("androidTestCompile", "androidTestImplementation")
+        return oldLine ,True
+    elif TEST_ESPRESSO_PATTERN_X in oldLine:
+        latest_version = ESPRESSO_LATEST_VERSION
+        startIndex = oldLine.index(':')
+        endIndex = oldLine.rindex("'")
+        newLine = latest_version.join([oldLine[:startIndex+1],oldLine[endIndex:]])
+        newLine = newLine.replace("androidTestCompile", "androidTestImplementation")
         return newLine ,True
     else:
         return oldLine ,False
@@ -318,14 +359,19 @@ def replace(file_path, userdict):
                     if foundExclude:
                         new_file.write(exludePattern)
                         found = True
-                    if needInsertNdkVersion and "compileSdkVersion" in line:
+                    elif needInsertNdkVersion and "compileSdkVersion" in line:
                         new_file.write(line)
                         white_space_num = line.index(line.lstrip())
                         content_to_write = joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
                         new_file.write(content_to_write)
                         new_file.write('\n')
-                        print("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
+                        _green("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
                         found = True;
+                    elif  'jcenter()' in line:
+                        found = True
+                        _green("removing {0} from file {1} automaticly now that jcenter is closed ".format('jcenter()',file_path))
+                    else:  
+                        found = False
                 if not found:
                     new_file.write(line)
 
@@ -337,21 +383,22 @@ def replace(file_path, userdict):
     move(abs_path, file_path)
 
 def filter_large_gradle():
-    print("start==")
+    _yellow("==start==")
     replace(LARGE_GRADLE_FILE,REPLACEMENT_DICT_1)
-    print("end==")
+    ## now that jcenter is gone, remove it
+    _yellow("==end==")
 
 
 def filter_gradle_wrapper():
-    print("start==")
+    _yellow("==start==")
     replace(GRADLE_WRAPPER_FILES,REPLACEMENT_DICT_2)
-    print("end==")
+    _yellow("==end==")
 
 
 def filter_app_build_gradle():
-    print("start==")
+    _yellow("==start==")
     replace(APP_BUILD_GRADLE_FILE,REPLACEMENT_DICT_3)
-    print("start==")
+    _yellow("==end==")
 
 def handle_one_android_app(dirPath):
     gradlefile = os.path.join(dirPath,"build.gradle")
@@ -400,32 +447,32 @@ def maybe_module_not_called_app():
         if (os.path.isdir(file) and os.path.exists(abspath)):
             gradlefile = os.path.join(abspath,"build.gradle")
             if(os.path.exists(gradlefile) ):
-                print ('start processing  {0} '.format(os.path.abspath(gradlefile)))
+                _green ('start processing  {0} '.format(os.path.abspath(gradlefile)))
                 replace(os.path.abspath(gradlefile),REPLACEMENT_DICT_3)
-                print ('end processing  {0} '.format(os.path.abspath(gradlefile)))
+                _green ('end processing  {0} '.format(os.path.abspath(gradlefile)))
 
 def main():
     ## 1. process large build.gradle file
     if(os.path.exists(LARGE_GRADLE_FILE)):
-        print ('start processing File {0} {1}'.format(LARGE_GRADLE_FILE,"===="))
+        _green ('start processing File {0} {1}'.format(LARGE_GRADLE_FILE,"===="))
         filter_large_gradle()
     else:
-        print ('File {0} {1}'.format(LARGE_GRADLE_FILE,"not exists"))
+        _green ('File {0} {1}'.format(LARGE_GRADLE_FILE,"not exists"))
 
     ### 2. process gradle-warpper.properities file
     if(os.path.exists(GRADLE_WRAPPER_FILES)):
-        print ('start processing File {0} {1}'.format(GRADLE_WRAPPER_FILES,"===="))
+        _green ('start processing File {0} {1}'.format(GRADLE_WRAPPER_FILES,"===="))
         filter_gradle_wrapper()
     else:
-        print ('File {0} {1}'.format(GRADLE_WRAPPER_FILES,"not exists"))
+        _green ('File {0} {1}'.format(GRADLE_WRAPPER_FILES,"not exists"))
 
     ### 3. process app/build.gradle file
     if(os.path.exists(APP_BUILD_GRADLE_FILE)):
-        print ('start processing File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"===="))
+        _green ('start processing File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"===="))
         filter_app_build_gradle()
     else:
         maybe_module_not_called_app()
-        print ('File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"not exists"))
+        _green ('File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"not exists"))
 
     ### 4. may be there are more than one build.gradle file, for instance, on build.gradle file per module
     maybe_multiple_module()
