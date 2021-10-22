@@ -98,7 +98,7 @@ OKHTTP3_PATTERN="com.squareup.okhttp3:okhttp:"
 OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:3.11.0'"
 
 RXJAVA_PATTERN="io.reactivex.rxjava2:rxjava"
-RXJAVA_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'"
+RXJAVA_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'"
 
 RX_ANDROID_PATTERN="io.reactivex.rxjava2:rxandroid"
 RX_ANDROID_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'"
