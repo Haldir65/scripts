@@ -312,7 +312,7 @@ def workAroundForAndroidTestExcludeLine(oldLine):
         endIndex = oldLine.rindex("'")
         newLine = latest_version.join([oldLine[:startIndex+1],oldLine[endIndex:]])
         newLine = newLine.replace("androidTestCompile", "androidTestImplementation")
-        return oldLine ,True
+        return newLine ,True
     elif TEST_ESPRESSO_PATTERN_X in oldLine:
         latest_version = ESPRESSO_LATEST_VERSION
         startIndex = oldLine.rindex(':')
