@@ -44,7 +44,7 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.5.21'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.5.31'"
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
