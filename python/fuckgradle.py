@@ -44,18 +44,18 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.5.31'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.6.10'"
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:4.2.2'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.0.4'"
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10'"
+JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'"
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
-GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-6.9-bin.zip"
+GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-7.3.3-bin.zip"
 
 
 COMPILESDK_PATTERN="compileSdkVersion"
@@ -154,6 +154,14 @@ KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kot
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.7.0'"
 
+ANDROID_ACTIVITY_KTX_PATTERN="androidx.activity:activity-ktx"
+ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.4.0'"
+
+
+ANDROID_LIFE_LIVEDATA_PATTERN="androidx.lifecycle:lifecycle-livedata-ktx:"
+ANDROID_LIFE_LIVEDATA_PATTERN_REPLACEMENT="implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'"
+
+
 CARD_VIEW_PATTERN_SUPPORT="com.android.support:cardview"
 CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT="implementation 'com.android.support:cardview-v7:28.0.0'"
 
@@ -234,6 +242,8 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     DNK_PATTERN:NDK_PATTERN_REPLACEMENT,
     TEST_JUNIT_PATTERN:TEST_JUNIT_PATTERN_REPLACEMENT,
     ANDROID_KTX_PATTERN:ANDROID_KTX_PATTERN_REPLACEMENT,
+    ANDROID_LIFE_LIVEDATA_PATTERN:ANDROID_LIFE_LIVEDATA_PATTERN_REPLACEMENT,
+    ANDROID_ACTIVITY_KTX_PATTERN:ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT,
     KOTLINX_COROUTINE_PATTERN:KOTLINX_COROUTINE_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_GRIDLAYOUT_PATTERN:ANDROID_SUPPORT_GRIDLAYOUT_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT,
