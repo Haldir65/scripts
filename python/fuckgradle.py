@@ -78,7 +78,7 @@ RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview
 
 
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
-CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'"
+CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'"
 
 CONSTRAINT_LAYOUT_SUPPORT="com.android.support.constraint:constraint-layout"
 CONSTRAINT_LAYOUT_SUPPORT_REPLACEMENT="    implementation 'com.android.support.constraint:constraint-layout:2.0.4'"
@@ -95,7 +95,7 @@ GLIDE_COMPILER="com.github.bumptech.glide:compiler"
 GLIDE_COMPILER_REPLACEMENT="annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'"
 
 OKHTTP3_PATTERN="com.squareup.okhttp3:okhttp:"
-OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:3.11.0'"
+OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:3.14.9'"
 
 RXJAVA_PATTERN="io.reactivex.rxjava2:rxjava"
 RXJAVA_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'"
@@ -143,10 +143,10 @@ JUNIT_PATTER="junit:junit:"
 JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13.2'"
 
 ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
-ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.4.0'"
+ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.4.1'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
-GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.4.0'"
+GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.5.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'"
@@ -173,10 +173,10 @@ FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.3.5
 
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
-NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'"
+NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0'"
 
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
-NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'"
+NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.4.0'"
 
 
 lifecycle_version = "2.4.0"
