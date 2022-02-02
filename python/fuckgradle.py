@@ -48,7 +48,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.6.10'"
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.0.4'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.1.0'"
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'"
@@ -149,7 +149,11 @@ GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.5.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'"
+
+KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
+KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'"
+
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.7.0'"
@@ -169,7 +173,7 @@ CARD_VIEW_PATTERN="androidx.cardview:cardview"
 CARD_VIEW_PATTERN_REPLACEMENT="    implementation 'androidx.cardview:cardview:1.0.0'"
 
 FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
-FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.3.5'"
+FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.4.1'"
 
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
