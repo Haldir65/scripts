@@ -44,14 +44,18 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.6.10'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.7.0'"
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
+<<<<<<< Updated upstream
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.2.0'"
+=======
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.2.1'"
+>>>>>>> Stashed changes
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'"
+JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0'"
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
@@ -78,7 +82,7 @@ RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview
 
 
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
-CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'"
+CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'"
 
 CONSTRAINT_LAYOUT_SUPPORT="com.android.support.constraint:constraint-layout"
 CONSTRAINT_LAYOUT_SUPPORT_REPLACEMENT="    implementation 'com.android.support.constraint:constraint-layout:2.0.4'"
@@ -143,10 +147,14 @@ JUNIT_PATTER="junit:junit:"
 JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13.2'"
 
 ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
-ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.4.1'"
+ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.4.2'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
+<<<<<<< Updated upstream
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.6.0'"
+=======
+GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.6.1'"
+>>>>>>> Stashed changes
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'"
@@ -156,14 +164,11 @@ KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlin
 
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
-ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.7.0'"
+ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.8.0'"
 
 ANDROID_ACTIVITY_KTX_PATTERN="androidx.activity:activity-ktx"
 ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.4.0'"
 
-
-ANDROID_LIFE_LIVEDATA_PATTERN="androidx.lifecycle:lifecycle-livedata-ktx:"
-ANDROID_LIFE_LIVEDATA_PATTERN_REPLACEMENT="implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'"
 
 
 CARD_VIEW_PATTERN_SUPPORT="com.android.support:cardview"
@@ -183,8 +188,12 @@ NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
 NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.4.0'"
 
 
-lifecycle_version = "2.4.0"
+lifecycle_version = "2.4.1"
 arch_version = "2.1.0"
+
+ANDROID_LIFE_LIVEDATA_PATTERN="androidx.lifecycle:lifecycle-livedata-ktx:"
+ANDROID_LIFE_LIVEDATA_PATTERN_REPLACEMENT="implementation 'androidx.lifecycle:lifecycle-livedata-ktx:{0}'".format(lifecycle_version)
+
 
 LIFECYCLE_VIEWMODEL_KTX_PATTERN="androidx.lifecycle:lifecycle-viewmodel-ktx:"
 LIFECYCLE_VIEWMODEL_KTX_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:{0}'".format(lifecycle_version)
@@ -202,7 +211,7 @@ LIFECYCLE_SM_SAVED_STATE_PATTERN="androidx.lifecycle:lifecycle-viewmodel-savedst
 LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:{0}'".format(lifecycle_version)
 
 ANDROIDX_ROOM_RUNTIME="androidx.room:room-runtime:"
-ANDROIDX_ROOM_RUNTIME_REPLACE_MENT="implementation 'androidx.room:room-runtime:2.3.0'"
+ANDROIDX_ROOM_RUNTIME_REPLACE_MENT="implementation 'androidx.room:room-runtime:2.4.2'"
 
 
 EXO_PLAYER_CORE="com.google.android.exoplayer:exoplayer-core"
