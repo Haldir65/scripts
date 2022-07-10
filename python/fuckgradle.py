@@ -44,14 +44,14 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.7.0'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.7.10'"
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.2.1'"
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0'"
+JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'"
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
@@ -98,7 +98,7 @@ OKHTTP3_PATTERN="com.squareup.okhttp3:okhttp:"
 OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:3.14.9'"
 
 RXJAVA_PATTERN="io.reactivex.rxjava2:rxjava"
-RXJAVA_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'"
+RXJAVA_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'"
 
 RX_ANDROID_PATTERN="io.reactivex.rxjava2:rxandroid"
 RX_ANDROID_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'"
@@ -149,10 +149,10 @@ GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.6.1'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'"
 
 KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'"
+KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'"
 
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
