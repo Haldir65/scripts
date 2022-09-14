@@ -89,7 +89,7 @@ ANDROIDX_ANNOTATION_PATTERN_REPLACEMENT="implementation 'androidx.annotation:ann
 
 
 GLIDE_PATTERN="com.github.bumptech.glide:glide"
-GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.11.0'"
+GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.12.0'"
 
 GLIDE_COMPILER="com.github.bumptech.glide:compiler"
 GLIDE_COMPILER_REPLACEMENT="annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'"
@@ -199,6 +199,10 @@ LIFECYCLE_LIVE_DATA_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lif
 LIFECYCLE_RUNTIME_PATTERN="androidx.lifecycle:lifecycle-runtime:"
 LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-runtime:{0}'".format(lifecycle_version)
 
+LIFECYCLE_RUNTIME_KTX_PATTERN="androidx.lifecycle:lifecycle-runtime-ktx:"
+LIFECYCLE_RUNTIME_KTX_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-runtime-ktx:{0}'".format(lifecycle_version)
+
+
 LIFECYCLE_SM_SAVED_STATE_PATTERN="androidx.lifecycle:lifecycle-viewmodel-savedstate:"
 LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:{0}'".format(lifecycle_version)
 
@@ -259,6 +263,7 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     LIFECYCLE_VIEWMODEL_PATTERN:LIFECYCLE_VIEWMODEL_PATTERN_REPLACE_MENT,
     LIFECYCLE_LIVE_DATA_PATTERN:LIFECYCLE_LIVE_DATA_PATTERN_REPLACE_MENT,
     LIFECYCLE_RUNTIME_PATTERN:LIFECYCLE_RUNTIME_PATTERN_REPLACE_MENT,
+    LIFECYCLE_RUNTIME_KTX_PATTERN:LIFECYCLE_RUNTIME_KTX_PATTERN_REPLACE_MENT,
     LIFECYCLE_SM_SAVED_STATE_PATTERN:LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT,
     ANDROIDX_ROOM_RUNTIME:ANDROIDX_ROOM_RUNTIME_REPLACE_MENT,
     EXO_PLAYER_CORE:EXO_PLAYER_CORE_REPLACE_MENT,
