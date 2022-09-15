@@ -66,6 +66,7 @@ BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '33.0.0'"
 
 DNK_PATTERN = "ndkVersion"
 NDK_PATTERN_REPLACEMENT = "ndkVersion '25.1.8937393'"
+MAVEN_CENTRAL = "mavenCentral()"
 
 COMPILE_SUPPORT_V7_PATTERN="com.android.support:appcompat-v7"
 COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT="        implementation 'com.android.support:appcompat-v7:28.0.0'"
@@ -155,6 +156,9 @@ KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android
 KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'"
 
 
+JETBRAIN_KOTLIN_STDLIB_7="org.jetbrains.kotlin:kotlin-stdlib-jdk7:"
+JETBRAIN_KOTLIN_STDLIB_8="implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version\""
+
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.9.0'"
 
@@ -174,14 +178,32 @@ FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.5.2
 
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
-NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0'"
+NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'"
 
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
-NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.4.0'"
+NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'"
 
 
 lifecycle_version = "2.5.1"
 arch_version = "2.1.0"
+
+
+COMPILE_OPTION_11_HERE_DOCUMENT = """
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+    }
+"""
+
+ENABLE_VIEWBINDING_HERE_DOCUMENT = """
+    buildFeatures {
+        viewBinding true
+    }
+"""
 
 ANDROID_LIFE_LIVEDATA_PATTERN="androidx.lifecycle:lifecycle-livedata-ktx:"
 ANDROID_LIFE_LIVEDATA_PATTERN_REPLACEMENT="implementation 'androidx.lifecycle:lifecycle-livedata-ktx:{0}'".format(lifecycle_version)
@@ -228,6 +250,7 @@ REPLACEMENT_DICT_2 = {GRADLE_WRAPPER_PATTERN:GRADLE_WRAPPER_PATTERN_REPLACEMENT,
 REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     BUILD_TOOLS_PATTERN:BUILD_TOOLS_PATTERN_REPLACEMENT,
     COMPILE_SUPPORT_V7_PATTERN:COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT,
+    JETBRAIN_KOTLIN_STDLIB_7:JETBRAIN_KOTLIN_STDLIB_8,
     RECYCLERVIEW_PATTERN_ANDROIDX:RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT,
     CONSTRAINT_LAYOUT:CONSTRAINT_LAYOUT_REPLACEMENT,
     CONSTRAINT_LAYOUT_SUPPORT:CONSTRAINT_LAYOUT_SUPPORT_REPLACEMENT,
@@ -305,15 +328,21 @@ def ndkVersionIsMissingInDefaultConfig(file_path):
 
 ## if(file_path.__contains__("gradle")):
  ##       print ('required ndkversion {0} for file {1} '.format(ndkVersionMissing(file_path),file_path))
-def workAroundForAppeningNdkVersion(white_space_num,line,file_path,missingNdk,missingBuildToolVersion):
+def workAroundForAppeningNdkVersion(white_space_num,line,file_path,missingNdk,missingBuildToolVersion,needInsertViewBiding,needInsertJvava11):
     if("compileSdkVersion" in line):
         if missingNdk:
             line = line + '\n' +joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
             _green("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
+        if needInsertViewBiding:
+            line = line + '\n' +joinStrings(white_space_num)+ENABLE_VIEWBINDING_HERE_DOCUMENT
+            _green("add {0} to android block of file {1} automaticly ".format(ENABLE_VIEWBINDING_HERE_DOCUMENT,file_path))
+        if needInsertJvava11:
+            line = line + '\n' +joinStrings(white_space_num)+COMPILE_OPTION_11_HERE_DOCUMENT
+            _green("add {0} to android block of file {1} automaticly ".format(COMPILE_OPTION_11_HERE_DOCUMENT,file_path))        
         if missingBuildToolVersion:
             line = line + '\n' +joinStrings(white_space_num)+BUILD_TOOLS_PATTERN_REPLACEMENT.lstrip()
             _green("add {0} to android block of file {1} automaticly ".format(BUILD_TOOLS_PATTERN_REPLACEMENT,file_path))
-            return line
+        return line
 
 
 def workAroundForAndroidTestExcludeLine(oldLine):
@@ -355,6 +384,9 @@ def replace(file_path, userdict):
     fh, abs_path = mkstemp()
     needInsertNdkVersion = ndkVersionIsMissingInDefaultConfig(file_path)
     needInsertbuildToolsVersion = buildToolsVersionIsMissingInandroidBlock(file_path)
+    needInsertMavenCentral =  not text_file_contains_keywords(file_path,MAVEN_CENTRAL)
+    needInsertJvava11 = not text_file_contains_keywords(file_path,"JavaVersion.VERSION_11")
+    needInsertViewBiding = not text_file_contains_keywords(file_path,"viewBinding")
     with fdopen(fh,'w',encoding='utf-8') as new_file:
         with open(file_path,'r',encoding='utf-8') as old_file:
             keys = userdict.keys()
@@ -364,8 +396,9 @@ def replace(file_path, userdict):
                     if key in line :
                         white_space_num = line.index(line.lstrip())
                         content_to_write = joinStrings(white_space_num)+compat_api_or_implementation(line = line , newline = userdict[key].lstrip(),filename=file_path)
-                        if(needInsertNdkVersion or  needInsertbuildToolsVersion):
-                            appendedContent = workAroundForAppeningNdkVersion(white_space_num,content_to_write,file_path,needInsertNdkVersion,needInsertbuildToolsVersion)
+                        if(needInsertNdkVersion or  needInsertbuildToolsVersion or needInsertViewBiding or needInsertJvava11):
+                            appendedContent = workAroundForAppeningNdkVersion(white_space_num,content_to_write,file_path,needInsertNdkVersion,needInsertbuildToolsVersion,needInsertViewBiding = needInsertViewBiding,
+                            needInsertJvava11 = needInsertJvava11)
                             if appendedContent:
                                 content_to_write = appendedContent
                         new_file.write(content_to_write)
@@ -393,6 +426,14 @@ def replace(file_path, userdict):
                     elif  'jcenter()' in line:
                         found = True
                         _green("removing {0} from file {1} automaticly now that jcenter is closed ".format('jcenter()',file_path))
+                    elif needInsertMavenCentral and 'google()' in line:
+                        found = True
+                        new_file.write(line)
+                        white_space_num = line.index(line.lstrip())
+                        content_to_write = joinStrings(white_space_num)+MAVEN_CENTRAL
+                        new_file.write(content_to_write)
+                        new_file.write('\n')
+                        _green("add {0} after google()  of file {1} automaticly ".format(MAVEN_CENTRAL,file_path))
                     else:  
                         found = False
                 if not found:
