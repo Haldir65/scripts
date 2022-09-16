@@ -43,15 +43,17 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 
 ## ext.kotlin_version = '1.3.61'
 
+
+KOTLIN_VERSION="1.7.10"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
-EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '1.7.10'"
+EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.2.1'"
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'"
+JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version'"
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
@@ -67,6 +69,10 @@ BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '33.0.0'"
 DNK_PATTERN = "ndkVersion"
 NDK_PATTERN_REPLACEMENT = "ndkVersion '25.1.8937393'"
 MAVEN_CENTRAL = "mavenCentral()"
+JCENTER = "jcenter()"
+GOOGLE = "google()"
+
+
 
 COMPILE_SUPPORT_V7_PATTERN="com.android.support:appcompat-v7"
 COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT="        implementation 'com.android.support:appcompat-v7:28.0.0'"
@@ -165,8 +171,6 @@ ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.9.0'"
 ANDROID_ACTIVITY_KTX_PATTERN="androidx.activity:activity-ktx"
 ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.5.1'"
 
-
-
 CARD_VIEW_PATTERN_SUPPORT="com.android.support:cardview"
 CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT="implementation 'com.android.support:cardview-v7:28.0.0'"
 
@@ -176,13 +180,11 @@ CARD_VIEW_PATTERN_REPLACEMENT="    implementation 'androidx.cardview:cardview:1.
 FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
 FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.5.2'"
 
-
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
 NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'"
 
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
 NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'"
-
 
 lifecycle_version = "2.5.1"
 arch_version = "2.1.0"
@@ -301,6 +303,11 @@ def compat_api_or_implementation(line, newline,filename):
         return newline
 
 
+def readFileContent(file_abspath):
+    with open(file_abspath,"r",encoding='utf-8') as f:
+        content = f.read()
+        return content
+
 
 def text_file_contains_keywords(file_abspath,keywords):
     with open(file_abspath,"r",encoding='utf-8') as f:
@@ -379,6 +386,44 @@ def joinStrings(num_space):
         r +=(' ')
     return r
 
+def handle_large_build_gradle_file(file_path):
+    userdict = REPLACEMENT_DICT_1
+    keys = userdict.keys()
+    fh, abs_path = mkstemp()
+    fcontent = readFileContent(file_abspath= file_path)
+    needInsertMavenCentral = MAVEN_CENTRAL not in fcontent
+    needInsertGoogle =  GOOGLE not in fcontent
+    with fdopen(fh,'w') as new_file:
+        with open(file_path) as old_file:
+            for line in old_file:
+                white_space_num = line.index(line.lstrip())
+                key = next((x for x in keys if x in line), None) ## firstOccurence in list
+                if key:
+                    content_to_write = joinStrings(white_space_num)+userdict[key].lstrip()
+                    new_file.write(content_to_write)
+                    new_file.write('\n')
+                    pass
+                elif JCENTER in line:
+                    _green("removing JCENTER from file {0} automaticly now that jcenter is closed ".format(file_path))
+                    pass ## 
+                elif "repositories" in line and (needInsertGoogle or needInsertMavenCentral):
+                    new_file.write(line)
+                    if needInsertGoogle:
+                        new_file.write(joinStrings(white_space_num+4)+GOOGLE)
+                        new_file.write('\n')
+                    if needInsertMavenCentral:
+                        new_file.write(joinStrings(white_space_num+4)+MAVEN_CENTRAL)
+                    new_file.write('\n')
+                else:
+                    new_file.write(line)
+    #Copy the file permissions from the old file to the new file
+    copymode(file_path, abs_path)
+    #Remove original file
+    remove(file_path)
+    #Move new file
+    move(abs_path, file_path)
+
+
 def replace(file_path, userdict):
     #Create temp file
     fh, abs_path = mkstemp()
@@ -446,9 +491,10 @@ def replace(file_path, userdict):
     #Move new file
     move(abs_path, file_path)
 
-def filter_large_gradle():
+def filter_large_gradle(path):
     _yellow("==start==")
-    replace(LARGE_GRADLE_FILE,REPLACEMENT_DICT_1)
+    # replace(LARGE_GRADLE_FILE,REPLACEMENT_DICT_1)
+    handle_large_build_gradle_file(file_path=path)
     ## now that jcenter is gone, remove it
     _yellow("==end==")
 
@@ -478,7 +524,8 @@ def handle_one_android_app(dirPath):
             replace(gradlefile,REPLACEMENT_DICT_3)
         ## 3. this is an large android build.gradle file
         elif (text_file_contains_keywords(gradlefile,["buildscript","allprojects"])):
-            replace(gradlefile,REPLACEMENT_DICT_1)
+            # replace(gradlefile,REPLACEMENT_DICT_1)
+            handle_large_build_gradle_file(gradlefile)
     if(os.path.exists(gradle_wrapper_file)):
         # print('file  {0}  exists '.format(gradlefile))
         replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
@@ -519,11 +566,11 @@ def main():
     ## 1. process large build.gradle file
     if(os.path.exists(LARGE_GRADLE_FILE)):
         _green ('start processing File {0} {1}'.format(LARGE_GRADLE_FILE,"===="))
-        filter_large_gradle()
+        filter_large_gradle(LARGE_GRADLE_FILE)
     else:
         _green ('File {0} {1}'.format(LARGE_GRADLE_FILE,"not exists"))
 
-    ### 2. process gradle-warpper.properities file
+    ## 2. process gradle-warpper.properities file
     if(os.path.exists(GRADLE_WRAPPER_FILES)):
         _green ('start processing File {0} {1}'.format(GRADLE_WRAPPER_FILES,"===="))
         filter_gradle_wrapper()
