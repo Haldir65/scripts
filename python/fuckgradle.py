@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 
+from inspect import CO_ITERABLE_COROUTINE
 import logging ,os , fileinput
 from tempfile import mkstemp
 from shutil import move, copymode
@@ -62,6 +63,14 @@ GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org
 
 COMPILESDK_PATTERN="compileSdkVersion"
 COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 33"
+
+TARGETSDK_PATTERN="targetSdkVersion"
+TARGETSDK_PATTERN_REPLACEMENT="    targetSdkVersion 29"
+
+
+MIN_SDK_VERSION_PATTERN="minSdkVersion"
+MIN_SDK_VERSION_PATTERN_REPLACEMENT="minSdkVersion 27"
+
 
 BUILD_TOOLS_PATTERN="buildToolsVersion"
 BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '33.0.0'"
@@ -158,7 +167,7 @@ GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:mat
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'"
 
-KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
+KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-core"
 KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'"
 
 
@@ -175,7 +184,7 @@ CARD_VIEW_PATTERN_SUPPORT="com.android.support:cardview"
 CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT="implementation 'com.android.support:cardview-v7:28.0.0'"
 
 CARD_VIEW_PATTERN="androidx.cardview:cardview"
-CARD_VIEW_PATTERN_REPLACEMENT="    implementation 'androidx.cardview:cardview:1.0.0'"
+CARD_VIEW_PATTERN_REPLACEMENT="implementation 'androidx.cardview:cardview:1.0.0'"
 
 FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
 FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.5.2'"
@@ -250,6 +259,8 @@ REPLACEMENT_DICT_2 = {GRADLE_WRAPPER_PATTERN:GRADLE_WRAPPER_PATTERN_REPLACEMENT,
                     }
 
 REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
+    MIN_SDK_VERSION_PATTERN:MIN_SDK_VERSION_PATTERN_REPLACEMENT,
+    TARGETSDK_PATTERN:TARGETSDK_PATTERN_REPLACEMENT,
     BUILD_TOOLS_PATTERN:BUILD_TOOLS_PATTERN_REPLACEMENT,
     COMPILE_SUPPORT_V7_PATTERN:COMPILE_SUPPORT_V7_PATTERN_REPLACEMENT,
     JETBRAIN_KOTLIN_STDLIB_7:JETBRAIN_KOTLIN_STDLIB_8,
@@ -333,25 +344,6 @@ def ndkVersionIsMissingInDefaultConfig(file_path):
         else:
             return False
 
-## if(file_path.__contains__("gradle")):
- ##       print ('required ndkversion {0} for file {1} '.format(ndkVersionMissing(file_path),file_path))
-def workAroundForAppeningNdkVersion(white_space_num,line,file_path,missingNdk,missingBuildToolVersion,needInsertViewBiding,needInsertJvava11):
-    if("compileSdkVersion" in line):
-        if missingNdk:
-            line = line + '\n' +joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
-            _green("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
-        if needInsertViewBiding:
-            line = line + '\n' +joinStrings(white_space_num)+ENABLE_VIEWBINDING_HERE_DOCUMENT
-            _green("add {0} to android block of file {1} automaticly ".format(ENABLE_VIEWBINDING_HERE_DOCUMENT,file_path))
-        if needInsertJvava11:
-            line = line + '\n' +joinStrings(white_space_num)+COMPILE_OPTION_11_HERE_DOCUMENT
-            _green("add {0} to android block of file {1} automaticly ".format(COMPILE_OPTION_11_HERE_DOCUMENT,file_path))        
-        if missingBuildToolVersion:
-            line = line + '\n' +joinStrings(white_space_num)+BUILD_TOOLS_PATTERN_REPLACEMENT.lstrip()
-            _green("add {0} to android block of file {1} automaticly ".format(BUILD_TOOLS_PATTERN_REPLACEMENT,file_path))
-        return line
-
-
 def workAroundForAndroidTestExcludeLine(oldLine):
     if oldLine.endswith('{\n') and "(" and ","  and (TEST_ESPRESSO_PATTERN or TEST_ESPRESSO_PATTERN_X) in oldLine: #  androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         latest_version = ESPRESSO_LATEST_VERSION
@@ -385,6 +377,45 @@ def joinStrings(num_space):
     for i in range(0,num_space):
         r +=(' ')
     return r
+
+## unused , just for template
+def template_for_replace_certain_word_in_file(file_path):
+    #Create temp file
+    fh, abs_path = mkstemp()
+    with fdopen(fh,'w') as new_file:
+        with open(file_path) as old_file:
+            for line in old_file:
+                # new_file.write(line.replace(pattern, subst))
+                new_file.write(line)
+    #Copy the file permissions from the old file to the new file
+    copymode(file_path, abs_path)
+    #Remove original file
+    remove(file_path)
+    #Move new file
+    move(abs_path, file_path)
+
+
+def handle_gradle_wrapper_file(file_path):
+    #Create temp file
+    fh, abs_path = mkstemp()
+    userdict = REPLACEMENT_DICT_2
+    keys = userdict.keys()
+    with fdopen(fh,'w') as new_file:
+        with open(file_path) as old_file:
+            for line in old_file:
+                white_space_num = line.index(line.lstrip())
+                key = next((x for x in keys if x in line), None) ## firstOccurence in list
+                if key:
+                    new_file.write(joinStrings(white_space_num)+userdict[key].lstrip())
+                else:
+                    new_file.write(line)
+    #Copy the file permissions from the old file to the new file
+    copymode(file_path, abs_path)
+    #Remove original file
+    remove(file_path)
+    #Move new file
+    move(abs_path, file_path)
+
 
 def handle_large_build_gradle_file(file_path):
     userdict = REPLACEMENT_DICT_1
@@ -423,67 +454,60 @@ def handle_large_build_gradle_file(file_path):
     #Move new file
     move(abs_path, file_path)
 
+def add_essential_libs_if_non_found(filecontent,file,dict):
+    for k, v in reversed(dict.items()):
+        if not k in filecontent:
+            file.write(joinStrings(4)+v.lstrip())
+            file.write('\n')
 
-def replace(file_path, userdict):
+def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
     #Create temp file
     fh, abs_path = mkstemp()
+    fcontent = readFileContent(file_abspath= file_path)
+    needInsertbuildToolsVersion = BUILD_TOOLS_PATTERN not in fcontent
+    needInsertJava11 = "JavaVersion.VERSION_11" not in fcontent
+    needInsertViewBiding = "viewBinding" not in fcontent
     needInsertNdkVersion = ndkVersionIsMissingInDefaultConfig(file_path)
-    needInsertbuildToolsVersion = buildToolsVersionIsMissingInandroidBlock(file_path)
-    needInsertMavenCentral =  not text_file_contains_keywords(file_path,MAVEN_CENTRAL)
-    needInsertJvava11 = not text_file_contains_keywords(file_path,"JavaVersion.VERSION_11")
-    needInsertViewBiding = not text_file_contains_keywords(file_path,"viewBinding")
     with fdopen(fh,'w',encoding='utf-8') as new_file:
         with open(file_path,'r',encoding='utf-8') as old_file:
             keys = userdict.keys()
             for line in old_file:
-                found = False
-                for key in keys:
-                    if key in line :
-                        white_space_num = line.index(line.lstrip())
-                        content_to_write = joinStrings(white_space_num)+compat_api_or_implementation(line = line , newline = userdict[key].lstrip(),filename=file_path)
-                        if(needInsertNdkVersion or  needInsertbuildToolsVersion or needInsertViewBiding or needInsertJvava11):
-                            appendedContent = workAroundForAppeningNdkVersion(white_space_num,content_to_write,file_path,needInsertNdkVersion,needInsertbuildToolsVersion,needInsertViewBiding = needInsertViewBiding,
-                            needInsertJvava11 = needInsertJvava11)
-                            if appendedContent:
-                                content_to_write = appendedContent
-                        new_file.write(content_to_write)
-                        new_file.write('\n')
-                        # print ('found key  {0}, replace with {1}'.format(key , userdict[key]))
-                        found = True
-                        break
-                    else:
-                        pass
-                        # print("failed to found {0} in {1} ".format(key, line))
-                if not found:
-                    # print("not found at line {0}".format(line))
-                    exludePattern ,foundExclude = workAroundForAndroidTestExcludeLine(line)
-                    if foundExclude:
-                        new_file.write(exludePattern)
-                        found = True
-                    elif needInsertNdkVersion and "compileSdkVersion" in line:
-                        new_file.write(line)
-                        white_space_num = line.index(line.lstrip())
-                        content_to_write = joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT
-                        new_file.write(content_to_write)
-                        new_file.write('\n')
-                        _green("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path))
-                        found = True;
-                    elif  'jcenter()' in line:
-                        found = True
-                        _green("removing {0} from file {1} automaticly now that jcenter is closed ".format('jcenter()',file_path))
-                    elif needInsertMavenCentral and 'google()' in line:
-                        found = True
-                        new_file.write(line)
-                        white_space_num = line.index(line.lstrip())
-                        content_to_write = joinStrings(white_space_num)+MAVEN_CENTRAL
-                        new_file.write(content_to_write)
-                        new_file.write('\n')
-                        _green("add {0} after google()  of file {1} automaticly ".format(MAVEN_CENTRAL,file_path))
-                    else:  
-                        found = False
-                if not found:
+                white_space_num = line.index(line.lstrip())
+                key = next((x for x in keys if x in line), None) ## firstOccurence in list  
+                if key:
+                    content_to_write = joinStrings(white_space_num)+compat_api_or_implementation(line = line , newline = userdict[key].lstrip(),filename=file_path)
+                    new_file.write(content_to_write)
+                    new_file.write('\n')  
+                else:
                     new_file.write(line)
-
+                if COMPILESDK_PATTERN in line and (needInsertbuildToolsVersion or needInsertNdkVersion or needInsertViewBiding or needInsertJava11) :
+                    new_file.write('\n')  
+                    if needInsertbuildToolsVersion: ## ndkVersion followed by compileVersion
+                        new_file.write(joinStrings(white_space_num)+BUILD_TOOLS_PATTERN_REPLACEMENT.lstrip())  
+                        _green("add {0} to android block of file {1} automaticly ".format(BUILD_TOOLS_PATTERN_REPLACEMENT,file_path)) 
+                        new_file.write('\n')
+                    if needInsertNdkVersion: ## ndkVersion followed by compileVersion
+                        new_file.write(joinStrings(white_space_num)+NDK_PATTERN_REPLACEMENT)  
+                        _green("add {0} to android block of file {1} automaticly ".format(NDK_PATTERN_REPLACEMENT,file_path)) 
+                        new_file.write('\n')
+                    if needInsertViewBiding:
+                        new_file.write(joinStrings(white_space_num)+ENABLE_VIEWBINDING_HERE_DOCUMENT)
+                        _green("add {0} to android block of file {1} automaticly ".format(ENABLE_VIEWBINDING_HERE_DOCUMENT,file_path)) 
+                        new_file.write('\n')
+                    if needInsertJava11:
+                        new_file.write(joinStrings(white_space_num)+COMPILE_OPTION_11_HERE_DOCUMENT)
+                        _green("add {0} to android block of file {1} automaticly ".format(COMPILE_OPTION_11_HERE_DOCUMENT,file_path))
+                        new_file.write('\n')
+                ## add core dependency if non detected
+                if "dependencies" in line:
+                    add_essential_libs_if_non_found(filecontent = fcontent, file= new_file,dict=
+                    {
+                        KOTLINX_COROUTINE_PATTERN:KOTLINX_COROUTINE_PATTERN_REPLACEMENT,
+                        KOTLINX_COROUTINE_CORE_PATTERN:KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT,
+                        CARD_VIEW_PATTERN:CARD_VIEW_PATTERN_REPLACEMENT,
+                        ANDROID_ACTIVITY_KTX_PATTERN:ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT,
+                        ANDROID_KTX_PATTERN:ANDROID_KTX_PATTERN_REPLACEMENT
+                    } )
     #Copy the file permissions from the old file to the new file
     copymode(file_path, abs_path)
     #Remove original file
@@ -501,13 +525,14 @@ def filter_large_gradle(path):
 
 def filter_gradle_wrapper():
     _yellow("==start==")
-    replace(GRADLE_WRAPPER_FILES,REPLACEMENT_DICT_2)
+    # replace(GRADLE_WRAPPER_FILES,REPLACEMENT_DICT_2)
+    handle_gradle_wrapper_file(file_path = GRADLE_WRAPPER_FILES)
     _yellow("==end==")
 
 
 def filter_app_build_gradle():
     _yellow("==start==")
-    replace(APP_BUILD_GRADLE_FILE,REPLACEMENT_DICT_3)
+    dedicatedCallToReplaceAppBuildFile(APP_BUILD_GRADLE_FILE,REPLACEMENT_DICT_3)
     _yellow("==end==")
 
 def handle_one_android_app(dirPath):
@@ -518,20 +543,21 @@ def handle_one_android_app(dirPath):
         # print('file  {0}  exists '.format(gradlefile))
         ## 1. this is a module fo android application
         if(text_file_contains_keywords(gradlefile,["com.android.application","dependencies"])):
-            replace(gradlefile,REPLACEMENT_DICT_3)
+            dedicatedCallToReplaceAppBuildFile(gradlefile,REPLACEMENT_DICT_3)
         ## 2. this is a  module for android library
         elif(text_file_contains_keywords(gradlefile,["com.android.library","dependencies"])):
-            replace(gradlefile,REPLACEMENT_DICT_3)
+            dedicatedCallToReplaceAppBuildFile(gradlefile,REPLACEMENT_DICT_3)
         ## 3. this is an large android build.gradle file
         elif (text_file_contains_keywords(gradlefile,["buildscript","allprojects"])):
             # replace(gradlefile,REPLACEMENT_DICT_1)
             handle_large_build_gradle_file(gradlefile)
     if(os.path.exists(gradle_wrapper_file)):
         # print('file  {0}  exists '.format(gradlefile))
-        replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
+        # replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
+        handle_gradle_wrapper_file(gradle_wrapper_file)
     if(os.path.exists(inner_gradle_file)):
         # print('file  {0}  exists '.format(gradlefile))
-        replace(inner_gradle_file,REPLACEMENT_DICT_3)
+        dedicatedCallToReplaceAppBuildFile(inner_gradle_file,REPLACEMENT_DICT_3)
 
 
 def maybe_multiple_module():
@@ -559,7 +585,7 @@ def maybe_module_not_called_app():
             gradlefile = os.path.join(abspath,"build.gradle")
             if(os.path.exists(gradlefile) ):
                 _green ('start processing  {0} '.format(os.path.abspath(gradlefile)))
-                replace(os.path.abspath(gradlefile),REPLACEMENT_DICT_3)
+                dedicatedCallToReplaceAppBuildFile(os.path.abspath(gradlefile),REPLACEMENT_DICT_3)
                 _green ('end processing  {0} '.format(os.path.abspath(gradlefile)))
 
 def main():
