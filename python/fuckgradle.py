@@ -382,8 +382,8 @@ def joinStrings(num_space):
 def template_for_replace_certain_word_in_file(file_path):
     #Create temp file
     fh, abs_path = mkstemp()
-    with fdopen(fh,'w') as new_file:
-        with open(file_path) as old_file:
+    with fdopen(fh,'w',encoding='utf-8') as new_file:
+        with open(file_path,'r',encoding='utf-8') as old_file:
             for line in old_file:
                 # new_file.write(line.replace(pattern, subst))
                 new_file.write(line)
@@ -394,19 +394,28 @@ def template_for_replace_certain_word_in_file(file_path):
     #Move new file
     move(abs_path, file_path)
 
+def line_count_of_text_file(file_path):
+    with open(file = file_path,encoding='utf-8') as f:
+        count = sum(1 for _ in f)
+        return count
+
+
 
 def handle_gradle_wrapper_file(file_path):
     #Create temp file
     fh, abs_path = mkstemp()
     userdict = REPLACEMENT_DICT_2
     keys = userdict.keys()
-    with fdopen(fh,'w') as new_file:
-        with open(file_path) as old_file:
-            for line in old_file:
+    linecount = line_count_of_text_file(file_path= file_path)
+    with fdopen(fh,'w',encoding='utf-8') as new_file:
+        with open(file_path,'r',encoding='utf-8') as old_file:
+            for index, line in enumerate(old_file):
                 white_space_num = line.index(line.lstrip())
                 key = next((x for x in keys if x in line), None) ## firstOccurence in list
                 if key:
                     new_file.write(joinStrings(white_space_num)+userdict[key].lstrip())
+                    if not (index == linecount -1) :
+                        new_file.write("\n") ## skip write line break if this is last line
                 else:
                     new_file.write(line)
     #Copy the file permissions from the old file to the new file
@@ -424,8 +433,8 @@ def handle_large_build_gradle_file(file_path):
     fcontent = readFileContent(file_abspath= file_path)
     needInsertMavenCentral = MAVEN_CENTRAL not in fcontent
     needInsertGoogle =  GOOGLE not in fcontent
-    with fdopen(fh,'w') as new_file:
-        with open(file_path) as old_file:
+    with fdopen(fh,'w',encoding='utf-8') as new_file:
+        with open(file_path,'r',encoding='utf-8') as old_file:
             for line in old_file:
                 white_space_num = line.index(line.lstrip())
                 key = next((x for x in keys if x in line), None) ## firstOccurence in list
@@ -583,10 +592,12 @@ def maybe_module_not_called_app():
         abspath = os.path.join(pwd,file)
         if (os.path.isdir(file) and os.path.exists(abspath)):
             gradlefile = os.path.join(abspath,"build.gradle")
-            if(os.path.exists(gradlefile) ):
-                _green ('start processing  {0} '.format(os.path.abspath(gradlefile)))
-                dedicatedCallToReplaceAppBuildFile(os.path.abspath(gradlefile),REPLACEMENT_DICT_3)
-                _green ('end processing  {0} '.format(os.path.abspath(gradlefile)))
+            if(os.path.exists(gradlefile)):
+                fcontent = readFileContent(file_abspath = gradlefile)
+                if("compileSdkVersion" in fcontent):
+                    _green ('start processing  {0} '.format(os.path.abspath(gradlefile)))
+                    dedicatedCallToReplaceAppBuildFile(os.path.abspath(gradlefile),REPLACEMENT_DICT_3)
+                    _green ('end processing  {0} '.format(os.path.abspath(gradlefile)))
 
 def main():
     ## 1. process large build.gradle file
