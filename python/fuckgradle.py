@@ -45,13 +45,13 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="1.7.10"
+KOTLIN_VERSION="1.7.20"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.2.1'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.3.1'"
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version'"
@@ -111,13 +111,14 @@ GLIDE_COMPILER="com.github.bumptech.glide:compiler"
 GLIDE_COMPILER_REPLACEMENT="annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'"
 
 OKHTTP3_PATTERN="com.squareup.okhttp3:okhttp:"
-OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:3.14.9'"
+OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:4.10.0'"
 
 RXJAVA_PATTERN="io.reactivex.rxjava2:rxjava"
 RXJAVA_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'"
 
 RX_ANDROID_PATTERN="io.reactivex.rxjava2:rxandroid"
 RX_ANDROID_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'"
+
 
 RETROFIT_PATTERN="com.squareup.retrofit2:retrofit"
 RETROFT_PATTERN_REPLACEMENT="    implementation 'com.squareup.retrofit2:retrofit:2.9.0'"
@@ -162,7 +163,7 @@ ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
 ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.5.1'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
-GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.6.1'"
+GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.7.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'"
@@ -170,6 +171,11 @@ KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kot
 KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-core"
 KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'"
 
+KOTLIN_REFLECT_PATTERN="org.jetbrains.kotlin:kotlin-reflect"
+KOTLIN_REFLECT_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.20'"
+
+KOTLINX_ATOMIC_FU_PATTERN="org.jetbrains.kotlinx:atomicfu"
+KOTLINX_ATOMIC_FU_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:atomicfu:0.18.5'"
 
 JETBRAIN_KOTLIN_STDLIB_7="org.jetbrains.kotlin:kotlin-stdlib-jdk7:"
 JETBRAIN_KOTLIN_STDLIB_8="implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version\""
@@ -178,7 +184,7 @@ ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.9.0'"
 
 ANDROID_ACTIVITY_KTX_PATTERN="androidx.activity:activity-ktx"
-ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.6.0'"
+ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.6.1'"
 
 CARD_VIEW_PATTERN_SUPPORT="com.android.support:cardview"
 CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT="implementation 'com.android.support:cardview-v7:28.0.0'"
@@ -187,7 +193,7 @@ CARD_VIEW_PATTERN="androidx.cardview:cardview"
 CARD_VIEW_PATTERN_REPLACEMENT="implementation 'androidx.cardview:cardview:1.0.0'"
 
 FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
-FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.5.2'"
+FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.5.4'"
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
 NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'"
@@ -290,6 +296,8 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     ANDROID_LIFE_LIVEDATA_PATTERN:ANDROID_LIFE_LIVEDATA_PATTERN_REPLACEMENT,
     ANDROID_ACTIVITY_KTX_PATTERN:ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT,
     KOTLINX_COROUTINE_PATTERN:KOTLINX_COROUTINE_PATTERN_REPLACEMENT,
+    KOTLIN_REFLECT_PATTERN:KOTLIN_REFLECT_PATTERN_REPLACEMENT,
+    KOTLINX_ATOMIC_FU_PATTERN:KOTLINX_ATOMIC_FU_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_GRIDLAYOUT_PATTERN:ANDROID_SUPPORT_GRIDLAYOUT_PATTERN_REPLACEMENT,
     ANDROID_SUPPORT_PALETTE_PATTERN:ANDROID_SUPPORT_PALETTE_PATTERN_REPLACEMENT,
     NAVIGATION_FRAGMENT_KTX_PATTERN:NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT,
