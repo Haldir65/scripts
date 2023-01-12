@@ -6,6 +6,7 @@ URL = 'https://www.baidu.com'
 
 semaphore = asyncio.Semaphore(CONCURRENCY)
 session = None
+##Don’t create a session per request. Most likely you need a session per application which performs all requests altogether.
 
 async def scrape_api():
     async with semaphore:
