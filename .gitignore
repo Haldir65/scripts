@@ -1,4 +1,4 @@
 .gradle/
 build/
 .vscode
-python/async/env/
+python/env/
