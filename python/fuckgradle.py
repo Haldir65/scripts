@@ -45,13 +45,13 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="1.7.20"
+KOTLIN_VERSION="1.8.10"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.3.1'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.4.1'"
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version'"
@@ -130,7 +130,7 @@ RETROFT_GSON_PATTERN_REPLACEMENT="implementation 'com.squareup.retrofit2:convert
 TEST_RUNNNER_PATTERN="com.android.support.test:runner"
 TEST_RUNNNER_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test:runner:1.0.2'"
 
-ESPRESSO_LATEST_VERSION="3.4.0"
+ESPRESSO_LATEST_VERSION="3.5.1"
 
 TEST_ESPRESSO_PATTERN="com.android.support.test.espresso:espresso-core"
 TEST_ESPRESSO_PATTERN_REPLACEMENT="androidTestImplementation 'com.android.support.test.espresso:espresso-core:{0}'".format(ESPRESSO_LATEST_VERSION)
@@ -140,7 +140,7 @@ TEST_ESPRESSO_PATTERN_X_REPLACEMENT="androidTestImplementation 'androidx.test.es
 
 
 TEST_JUNIT_PATTERN="androidx.test.ext:junit"
-TEST_JUNIT_PATTERN_REPLACEMENT="androidTestImplementation 'androidx.test.ext:junit:1.1.3'"
+TEST_JUNIT_PATTERN_REPLACEMENT="androidTestImplementation 'androidx.test.ext:junit:1.1.5'"
 
 ANDROID_SUPPORT_DESIGN_PATTERN="com.android.support:design:"
 ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT="    implementation 'com.android.support:design:28.0.0'"
@@ -160,7 +160,7 @@ JUNIT_PATTER="junit:junit:"
 JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13.2'"
 
 ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
-ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.5.1'"
+ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.6.0'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.7.0'"
@@ -196,10 +196,10 @@ FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
 FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.5.4'"
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
-NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'"
+NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'"
 
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
-NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'"
+NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'"
 
 lifecycle_version = "2.5.1"
 arch_version = "2.1.0"
