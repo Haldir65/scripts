@@ -1,4 +1,5 @@
-println "executing app build.gradle"
+apply from: "${project.projectDir}${File.separator}app${File.separator}functionality.gradle"
+println "executing app build.gradle "
 
 
 boolean isDebug() {
@@ -25,6 +26,10 @@ boolean isDebug() {
 def isDebug = isDebug()
 if(isDebug){
     println "this is debug build"
+    project.logger.lifecycle("this may be an debug build \n \n")
 } else {
     println "this is not debug build"
 }
+
+//project.ext.basicCollectionOperations()
+basicCollectionOperations()

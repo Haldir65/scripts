@@ -1,0 +1,38 @@
+import groovy.transform.Field
+
+@Field final ArrayList<String> modules = [
+        'rpc',
+        'bundles',
+        'Tribe',
+        'APMS','Blue'
+]
+
+def countingElements(){
+
+    var exist = modules.any {
+//        it == "bundles"
+        it.contains("b11ap")
+    }
+    modules.size()
+    project.logger.log(LogLevel.ERROR,"$exist")
+}
+
+
+
+
+/**
+ * the purpose of this file is to demonstrate that intelij has basic autocompletion for groovy syntax
+ * @return
+ */
+boolean basicCollectionOperations() {
+    project.logger.log(LogLevel.ERROR,"this is start of your basic operation \n ")
+
+    countingElements()
+
+    project.logger.log(LogLevel.INFO,"this is end of your basic operation \n")
+}
+
+project.ext.basicCollectionOperations = {
+    basicCollectionOperations()
+}
+

@@ -1,4 +1,6 @@
 .gradle/
 build/
 .vscode
+gradle-scripts/.idea/
 python/env/
+gradle-scripts/local.properties
