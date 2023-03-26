@@ -19,3 +19,5 @@ lolFunction(1)
 
 
 https://docs.gradle.org/current/userguide/writing_build_scripts.html
+https://docs.gradle.org/current/userguide/kotlin_dsl.html
+https://www.tutorialspoint.com/groovy/groovy_optionals.htm
