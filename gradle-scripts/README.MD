@@ -16,3 +16,6 @@ ext.lolFunction(1)
 lolFunction(1)                                                             
                                                          
 ```
+
+
+https://docs.gradle.org/current/userguide/writing_build_scripts.html
