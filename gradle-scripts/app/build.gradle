@@ -1,35 +1,17 @@
 apply from: "${project.projectDir}${File.separator}app${File.separator}functionality.gradle"
-println "executing app build.gradle "
+apply from: "${project.projectDir}${File.separator}app${File.separator}fileio.gradle"
+apply from: "${project.projectDir}${File.separator}app${File.separator}debug.gradle"
+apply from: "${project.projectDir}${File.separator}app${File.separator}logger.gradle"
+fileTree('lib1').each { apply from: "${it}" }
+project.logger.lifecycle( "\n \n !!! executing app build.gradle \n\n")
 
 
-boolean isDebug() {
-    boolean ret = false
-    try {
-        Properties properties = new Properties()
-        File file = project.rootProject.file('local.properties')
-        if (!file.exists()) {
-            return false
-        }
-        properties.load(file.newDataInputStream())
-        String debugStr = properties.getProperty("debug")
-        if (debugStr != null && debugStr.length() > 0) {
-            ret = debugStr.toBoolean()
-        }
-    } catch (Throwable throwable) {
-        throwable.printStackTrace()
-        ret = false
-    }
-    project.logger.error("[${project.name}]Debug:${ret}")
-    return ret
-}
+testingFile()
 
-def isDebug = isDebug()
-if(isDebug){
-    println "this is debug build"
-    project.logger.lifecycle("this may be an debug build \n \n")
-} else {
-    println "this is not debug build"
-}
+project.ext.ColorLogger.demostrateMultipleColor()
+
+project.logger.lifecycle( "\n \n !!! done app build.gradle \n\n")
+
 
 //project.ext.basicCollectionOperations()
-basicCollectionOperations()
+//basicCollectionOperations()

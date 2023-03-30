@@ -1,1 +1,3 @@
-println "executing lib1 build.gradle"
+apply from: "${project.projectDir}${File.separator}app${File.separator}logger.gradle"
+
+project.ext.ColorLogger.green("executing lib1 build.gradle")

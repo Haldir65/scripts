@@ -4,3 +4,4 @@ build/
 gradle-scripts/.idea/
 python/env/
 gradle-scripts/local.properties
+gradle-scripts/lib/

@@ -1,0 +1,21 @@
+
+def readFile1(){
+    def pwd = System.getProperty("user.dir")
+    println(pwd)
+//    File file = new File("E:/Example.txt")
+//    println file.text
+    new File("${pwd}/hello.txt").eachLine {
+        line -> println "line : $line";
+    }
+    def file = new File("${pwd}/hello.txt")
+    project.ext.ColorLogger.yellow("File? ${file.isFile()}")
+    project.ext.ColorLogger.green("Directory? ${file.isDirectory()}")
+    project.ext.ColorLogger.purple("The file ${file.absolutePath} has ${file.length()} bytes")
+}
+
+
+
+
+project.ext.testingFile = {
+    readFile1()
+}

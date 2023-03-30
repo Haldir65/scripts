@@ -51,14 +51,14 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VE
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.4.1'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.4.2'"
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version'"
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
-GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-7.5.1-all.zip"
+GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-8.0.2-all.zip"
 
 
 COMPILESDK_PATTERN="compileSdkVersion"
@@ -73,7 +73,7 @@ MIN_SDK_VERSION_PATTERN_REPLACEMENT="minSdkVersion 27"
 
 
 BUILD_TOOLS_PATTERN="buildToolsVersion"
-BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '33.0.0'"
+BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '33.0.2'"
 
 DNK_PATTERN = "ndkVersion"
 NDK_PATTERN_REPLACEMENT = "ndkVersion '25.1.8937393'"
@@ -160,10 +160,10 @@ JUNIT_PATTER="junit:junit:"
 JUNIT_PATTER_REPLACE_MENT="    testImplementation 'junit:junit:4.13.2'"
 
 ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
-ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.6.0'"
+ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.6.1'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
-GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.7.0'"
+GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.8.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'"
@@ -201,7 +201,7 @@ NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
 NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'"
 
-lifecycle_version = "2.5.1"
+lifecycle_version = "2.6.1"
 arch_version = "2.1.0"
 
 
@@ -246,7 +246,7 @@ LIFECYCLE_SM_SAVED_STATE_PATTERN="androidx.lifecycle:lifecycle-viewmodel-savedst
 LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:{0}'".format(lifecycle_version)
 
 ANDROIDX_ROOM_RUNTIME="androidx.room:room-runtime:"
-ANDROIDX_ROOM_RUNTIME_REPLACE_MENT="implementation 'androidx.room:room-runtime:2.4.2'"
+ANDROIDX_ROOM_RUNTIME_REPLACE_MENT="implementation 'androidx.room:room-runtime:2.5.1'"
 
 
 EXO_PLAYER_CORE="com.google.android.exoplayer:exoplayer-core"

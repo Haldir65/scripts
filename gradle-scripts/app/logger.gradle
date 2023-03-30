@@ -1,0 +1,55 @@
+import com.sun.org.slf4j.internal.LoggerFactory
+
+public class ColorLogger {
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
+
+    public void blue(String logging){
+        println(ANSI_BLUE + logging + ANSI_RESET)
+    }
+
+    public void black(String logging){
+        println(ANSI_BLACK + logging + ANSI_RESET)
+    }
+    public void red(String logging){
+        println(ANSI_RED + logging + ANSI_RESET)
+    }
+    public void green(String logging){
+        println(ANSI_GREEN + logging + ANSI_RESET)
+    }
+    public void yellow(String logging){
+        println(ANSI_YELLOW + logging + ANSI_RESET)
+    }
+
+    public void purple(String logging){
+        println(ANSI_PURPLE + logging + ANSI_RESET)
+    }
+
+    public void cyan(String logging){
+        println(ANSI_CYAN + logging + ANSI_RESET)
+    }
+
+    public void WHITE(String logging){
+        println(ANSI_WHITE + logging + ANSI_RESET)
+    }
+
+    public void demostrateMultipleColor(){
+        yellow("this is yellow")
+        blue("this is blue")
+        purple("this is purple")
+        cyan("this is cyan")
+        green("this is green")
+        red("this is red")
+    }
+}
+
+project.ext.ColorLogger = new ColorLogger()
