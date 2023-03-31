@@ -3,5 +3,6 @@ build/
 .vscode
 gradle-scripts/.idea/
 python/env/
+python/resources/
 gradle-scripts/local.properties
 gradle-scripts/lib/
