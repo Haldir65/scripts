@@ -1,6 +1,7 @@
 .gradle/
 build/
 .vscode
+.DS_Store
 gradle-scripts/.idea/
 python/env/
 python/resources/
