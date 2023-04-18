@@ -1,51 +1,7 @@
 #!/bin/bash
 
-RED='\033[0;36m'
-DarkGray='\033[1;30m'
+source ./functions.sh
 
-_green() {
-    printf '\033[1;31;32m'
-    printf -- "%b" "$1"
-    printf '\033[0m'
-}
-
-_red() {
-    printf '\033[1;31;31m'
-    printf -- "%b" "$1"
-    printf '\033[0m'
-}
-
-_yellow() {
-    printf '\033[1;31;33m'
-    printf -- "%b" "$1"
-    printf '\033[0m'
-}
-
-_purple() {
-    printf "\033[0;35m$1"
-}
-
-_orange() {
-    printf "\033[0;33m$1"
-}
-
-_Cyan() {
-    printf "\033[0;36m$1"
-}
-
-_blue() {
-    printf "\033[0;34m$1"
-}
-
-helpFunction()
-{
-   echo ""
-   echo "Usage: $0 -a parameterA -b parameterB -c parameterC"
-   echo -e "\t-a Description of what is parameterA"
-   echo -e "\t-b Description of what is parameterB"
-   echo -e "\t-c Description of what is parameterC"
-   exit 1 # Exit script after printing help
-}
 
 # while getopts "a:b:c:" opt
 # do
@@ -84,8 +40,44 @@ parse_input()
 }
 
 
-parse_input "$@"
-main
+# parse_input "$@"
+# main
+
+#!/bin/bash
+
+SHORT=p:,:,r
+LONG=tutorial1:,tutorial2:,help
+OPTS=$(getopt -a -n class --options $SHORT --longoptions $LONG -- "$@")
+
+eval set -- "$OPTS"
+
+while :
+do
+  case "$1" in
+    -p | --tutorial1 )
+      tutorial1="$2"
+      shift 2
+      ;;
+    -q | --tutorial2 )
+      tutorial2="$2"
+      shift 2
+      ;;
+    -r | --help)
+      "This is a class script"
+      exit 2
+      ;;
+    --)
+      shift;
+      break
+      ;;
+    *)
+      echo "Unexpected option: $1"
+      ;;
+  esac
+done
+
+echo $tutorial1, $tutorial2
+# ) 
 
 # string='300-400'
 # if [[ ! $string == *"-"* ]]; then

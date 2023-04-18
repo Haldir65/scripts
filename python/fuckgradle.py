@@ -51,7 +51,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VE
 
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:7.4.2'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:8.0.0'"
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version'"
