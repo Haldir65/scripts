@@ -207,18 +207,19 @@ arch_version = "2.1.0"
 
 COMPILE_OPTION_11_HERE_DOCUMENT = """
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
+        jvmTarget = JavaVersion.VERSION_17
     }
 """
 
 ENABLE_VIEWBINDING_HERE_DOCUMENT = """
     buildFeatures {
         viewBinding true
+        buildconfig false
     }
 """
 
