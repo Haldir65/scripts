@@ -45,7 +45,7 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="1.8.10"
+KOTLIN_VERSION="1.8.20"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
@@ -184,7 +184,7 @@ ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.10.0'"
 
 ANDROID_ACTIVITY_KTX_PATTERN="androidx.activity:activity-ktx"
-ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.7.0'"
+ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.7.1'"
 
 CARD_VIEW_PATTERN_SUPPORT="com.android.support:cardview"
 CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT="implementation 'com.android.support:cardview-v7:28.0.0'"
@@ -205,7 +205,7 @@ lifecycle_version = "2.6.1"
 arch_version = "2.1.0"
 
 
-COMPILE_OPTION_11_HERE_DOCUMENT = """
+COMPILE_OPTION_17_HERE_DOCUMENT = """
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -213,6 +213,12 @@ COMPILE_OPTION_11_HERE_DOCUMENT = """
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17
+    }
+"""
+
+JAVA_TOOL_CHAIN_17 = """
+    java {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(17))
     }
 """
 
@@ -482,10 +488,15 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
     #Create temp file
     fh, abs_path = mkstemp()
     fcontent = readFileContent(file_abspath= file_path)
+    if "com.android.tools.build:gradle" in fcontent:
+        _green('file {0} is large build file ,should not go this way'.format(file_path))
+        return
     needInsertbuildToolsVersion = BUILD_TOOLS_PATTERN not in fcontent
-    needInsertJava11 = "JavaVersion.VERSION_11" not in fcontent
+    needInsertJava17 = "JavaVersion.VERSION_17" not in fcontent and "JavaVersion.VERSION_11" not in fcontent
     needInsertViewBiding = "viewBinding" not in fcontent
     needInsertNdkVersion = ndkVersionIsMissingInDefaultConfig(file_path)
+    needInsertToolChainsVersion = "toolchain.languageVersion" not in fcontent
+    # _green("needInsertToolChainsVersion for {0} is {1}".format(file_path,needInsertToolChainsVersion))
     with fdopen(fh,'w',encoding='utf-8') as new_file:
         with open(file_path,'r',encoding='utf-8') as old_file:
             keys = userdict.keys()
@@ -495,10 +506,17 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
                 if key:
                     content_to_write = joinStrings(white_space_num)+compat_api_or_implementation(line = line , newline = userdict[key].lstrip(),filename=file_path)
                     new_file.write(content_to_write)
-                    new_file.write('\n')  
+                    new_file.write('\n')
+                elif "JavaVersion.VERSION_11" in line:
+                    new_file.write(line.replace("VERSION_11","VERSION_17"))
+                    if not line.endswith("\n"):
+                        new_file.write('\n')
+                elif "kotlin-android-extensions" in line:
+                    _yellow("remove kotlin-android-extensions in {0} ".format(file_path))
+                    pass
                 else:
                     new_file.write(line)
-                if COMPILESDK_PATTERN in line and (needInsertbuildToolsVersion or needInsertNdkVersion or needInsertViewBiding or needInsertJava11) :
+                if COMPILESDK_PATTERN in line and (needInsertbuildToolsVersion or needInsertNdkVersion or needInsertViewBiding or needInsertJava17 or needInsertToolChainsVersion) :
                     new_file.write('\n')  
                     if needInsertbuildToolsVersion: ## ndkVersion followed by compileVersion
                         new_file.write(joinStrings(white_space_num)+BUILD_TOOLS_PATTERN_REPLACEMENT.lstrip())  
@@ -512,9 +530,13 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
                         new_file.write(joinStrings(white_space_num)+ENABLE_VIEWBINDING_HERE_DOCUMENT)
                         _green("add {0} to android block of file {1} automaticly ".format(ENABLE_VIEWBINDING_HERE_DOCUMENT,file_path)) 
                         new_file.write('\n')
-                    if needInsertJava11:
-                        new_file.write(joinStrings(white_space_num)+COMPILE_OPTION_11_HERE_DOCUMENT)
-                        _green("add {0} to android block of file {1} automaticly ".format(COMPILE_OPTION_11_HERE_DOCUMENT,file_path))
+                    if needInsertJava17:
+                        new_file.write(joinStrings(white_space_num)+COMPILE_OPTION_17_HERE_DOCUMENT)
+                        _green("add {0} to android block of file {1} automaticly ".format(COMPILE_OPTION_17_HERE_DOCUMENT,file_path))
+                        new_file.write('\n')
+                    if needInsertToolChainsVersion:
+                        new_file.write(joinStrings(white_space_num)+JAVA_TOOL_CHAIN_17)
+                        _green("add {0} to android block of file {1} automaticly ".format(JAVA_TOOL_CHAIN_17,file_path))
                         new_file.write('\n')
                 ## add core dependency if non detected
                 if "dependencies" in line:
