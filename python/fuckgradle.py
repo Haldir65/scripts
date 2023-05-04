@@ -225,7 +225,7 @@ JAVA_TOOL_CHAIN_17 = """
 ENABLE_VIEWBINDING_HERE_DOCUMENT = """
     buildFeatures {
         viewBinding true
-        buildconfig false
+        buildConfig false
     }
 """
 
