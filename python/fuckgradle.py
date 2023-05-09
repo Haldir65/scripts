@@ -630,7 +630,17 @@ def maybe_module_not_called_app():
                     dedicatedCallToReplaceAppBuildFile(os.path.abspath(gradlefile),REPLACEMENT_DICT_3)
                     _green ('end processing  {0} '.format(os.path.abspath(gradlefile)))
 
+def thisProjectHasTomlAndShouldAbort():
+    if os.path.exists('gradle/libs.versions.toml'):
+        _yellow('this project has toml file at \n\n{0} \n\nskip all action'.format(os.path.join(os.getcwd(),'gradle/libs.versions.toml')))
+        return True
+    else: return False
+
 def main():
+
+    ## 1.0 . abort if this project has toml structure
+    if(thisProjectHasTomlAndShouldAbort()):
+        return
     ## 1. process large build.gradle file
     if(os.path.exists(LARGE_GRADLE_FILE)):
         _green ('start processing File {0} {1}'.format(LARGE_GRADLE_FILE,"===="))
