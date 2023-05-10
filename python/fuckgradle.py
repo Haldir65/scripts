@@ -634,6 +634,9 @@ def thisProjectHasTomlAndShouldAbort():
     if os.path.exists('gradle/libs.versions.toml'):
         _yellow('this project has toml file at \n\n{0} \n\nskip all action'.format(os.path.join(os.getcwd(),'gradle/libs.versions.toml')))
         return True
+    elif os.path.exists('buildSrc') and os.path.isdir('buildSrc'):
+        _yellow('this project has buildSrc folder at \n\n{0} \n\nskip all action'.format(os.path.join(os.getcwd(),'buildSrc')))
+        return True
     else: return False
 
 def main():
