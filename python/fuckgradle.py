@@ -163,7 +163,7 @@ ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
 ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.6.1'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
-GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.8.0'"
+GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.9.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'"
@@ -181,7 +181,7 @@ JETBRAIN_KOTLIN_STDLIB_7="org.jetbrains.kotlin:kotlin-stdlib-jdk7:"
 JETBRAIN_KOTLIN_STDLIB_8="implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version\""
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
-ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.10.0'"
+ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.10.1'"
 
 ANDROID_ACTIVITY_KTX_PATTERN="androidx.activity:activity-ktx"
 ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.7.1'"
