@@ -45,7 +45,7 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="1.8.21"
+KOTLIN_VERSION="1.8.22"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
@@ -111,7 +111,7 @@ GLIDE_COMPILER="com.github.bumptech.glide:compiler"
 GLIDE_COMPILER_REPLACEMENT="annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'"
 
 OKHTTP3_PATTERN="com.squareup.okhttp3:okhttp:"
-OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:4.10.0'"
+OKHTTP3_PATTERN_REPLACEMENT="    implementation 'com.squareup.okhttp3:okhttp:4.11.0'"
 
 RXJAVA_PATTERN="io.reactivex.rxjava2:rxjava"
 RXJAVA_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'"
@@ -196,10 +196,10 @@ FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
 FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.5.6'"
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
-NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'"
+NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'"
 
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
-NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'"
+NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'"
 
 lifecycle_version = "2.6.1"
 arch_version = "2.1.0"
