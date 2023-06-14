@@ -49,9 +49,10 @@ KOTLIN_VERSION="1.8.22"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
+AGP_VERSION="8.0.2"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
-GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:8.0.2'"
+GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
 
 JETBRAIN_GRALDE_PATTERN="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version'"
@@ -63,6 +64,10 @@ GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org
 
 COMPILESDK_PATTERN="compileSdkVersion"
 COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 33"
+
+COMPILESDK="compileSdk"
+COMPILESDK_REPLACEMENT="    compileSdk 33"
+
 
 TARGETSDK_PATTERN="targetSdkVersion"
 TARGETSDK_PATTERN_REPLACEMENT="    targetSdkVersion 29"
@@ -172,7 +177,7 @@ KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-core"
 KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'"
 
 KOTLIN_REFLECT_PATTERN="org.jetbrains.kotlin:kotlin-reflect"
-KOTLIN_REFLECT_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.20'"
+KOTLIN_REFLECT_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlin:kotlin-reflect:{0}'".format(KOTLIN_VERSION)
 
 KOTLINX_ATOMIC_FU_PATTERN="org.jetbrains.kotlinx:atomicfu"
 KOTLINX_ATOMIC_FU_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:atomicfu:0.18.5'"
@@ -193,7 +198,7 @@ CARD_VIEW_PATTERN="androidx.cardview:cardview"
 CARD_VIEW_PATTERN_REPLACEMENT="implementation 'androidx.cardview:cardview:1.0.0'"
 
 FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
-FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.5.6'"
+FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.6.0'"
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
 NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'"
@@ -272,6 +277,7 @@ REPLACEMENT_DICT_2 = {GRADLE_WRAPPER_PATTERN:GRADLE_WRAPPER_PATTERN_REPLACEMENT,
                     }
 
 REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
+    COMPILESDK:COMPILESDK_REPLACEMENT,
     MIN_SDK_VERSION_PATTERN:MIN_SDK_VERSION_PATTERN_REPLACEMENT,
     TARGETSDK_PATTERN:TARGETSDK_PATTERN_REPLACEMENT,
     BUILD_TOOLS_PATTERN:BUILD_TOOLS_PATTERN_REPLACEMENT,
@@ -443,35 +449,57 @@ def handle_gradle_wrapper_file(file_path):
 
 
 def handle_large_build_gradle_file(file_path):
-    userdict = REPLACEMENT_DICT_1
-    keys = userdict.keys()
+    has_class_path = text_file_contains_keywords(file_abspath= file_path,keywords=["classpath","dependencies"])
     fh, abs_path = mkstemp()
     fcontent = readFileContent(file_abspath= file_path)
-    needInsertMavenCentral = MAVEN_CENTRAL not in fcontent
-    needInsertGoogle =  GOOGLE not in fcontent
-    with fdopen(fh,'w',encoding='utf-8') as new_file:
-        with open(file_path,'r',encoding='utf-8') as old_file:
-            for line in old_file:
-                white_space_num = line.index(line.lstrip())
-                key = next((x for x in keys if x in line), None) ## firstOccurence in list
-                if key:
-                    content_to_write = joinStrings(white_space_num)+userdict[key].lstrip()
-                    new_file.write(content_to_write)
-                    new_file.write('\n')
-                    pass
-                elif JCENTER in line:
-                    _green("removing JCENTER from file {0} automaticly now that jcenter is closed ".format(file_path))
-                    pass ## 
-                elif "repositories" in line and (needInsertGoogle or needInsertMavenCentral):
-                    new_file.write(line)
-                    if needInsertGoogle:
-                        new_file.write(joinStrings(white_space_num+4)+GOOGLE)
+    if has_class_path:
+        userdict = REPLACEMENT_DICT_1
+        keys = userdict.keys()
+        needInsertMavenCentral = MAVEN_CENTRAL not in fcontent
+        needInsertGoogle =  GOOGLE not in fcontent
+        with fdopen(fh,'w',encoding='utf-8') as new_file:
+            with open(file_path,'r',encoding='utf-8') as old_file:
+                for line in old_file:
+                    white_space_num = line.index(line.lstrip())
+                    key = next((x for x in keys if x in line), None) ## firstOccurence in list
+                    if key:
+                        content_to_write = joinStrings(white_space_num)+userdict[key].lstrip()
+                        new_file.write(content_to_write)
                         new_file.write('\n')
-                    if needInsertMavenCentral:
-                        new_file.write(joinStrings(white_space_num+4)+MAVEN_CENTRAL)
-                    new_file.write('\n')
-                else:
-                    new_file.write(line)
+                        pass
+                    elif JCENTER in line:
+                        _green("removing JCENTER from file {0} automaticly now that jcenter has sunset ".format(file_path))
+                        pass ## 
+                    elif "repositories" in line and (needInsertGoogle or needInsertMavenCentral):
+                        new_file.write(line)
+                        if needInsertGoogle:
+                            new_file.write(joinStrings(white_space_num+4)+GOOGLE)
+                            new_file.write('\n')
+                        if needInsertMavenCentral:
+                            new_file.write(joinStrings(white_space_num+4)+MAVEN_CENTRAL)
+                        new_file.write('\n')
+                    else:
+                        new_file.write(line)
+    else:
+        _green(" file {0} has new plugins like  plugins  apply false ".format(file_path))
+        dicts = {
+            "id 'com.android.application' version": "id 'com.android.application' version '{0}' apply false".format(AGP_VERSION),
+            "id 'com.android.library' version": "id 'com.android.library' version '{0}' apply false".format(AGP_VERSION),
+            "id 'org.jetbrains.kotlin.android' version": "id 'org.jetbrains.kotlin.android' version '{0}' apply false".format(KOTLIN_VERSION),
+            "id 'org.jetbrains.kotlin.jvm' version": "id 'org.jetbrains.kotlin.jvm' version '{0}' apply false".format(KOTLIN_VERSION)
+            }
+        with fdopen(fh,'w',encoding='utf-8') as new_file:
+            with open(file_path,'r',encoding='utf-8') as old_file:
+                for line in old_file:
+                    white_space_num = line.index(line.lstrip())
+                    key = next((x for x in dicts if x in line), None) ## firstOccurence in list
+                    if key:
+                        content_to_write = joinStrings(white_space_num)+dicts[key].lstrip()
+                        _blue("\nreplacing line  \n {0} in large gralde build file {1} with \n {2} ".format(line.lstrip(),file_path,content_to_write.lstrip()))
+                        new_file.write(content_to_write)
+                        new_file.write('\n')
+                    else:
+                        new_file.write(line)
     #Copy the file permissions from the old file to the new file
     copymode(file_path, abs_path)
     #Remove original file
@@ -493,7 +521,7 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
         _green('file {0} is large build file ,should not go this way'.format(file_path))
         return
     needInsertbuildToolsVersion = BUILD_TOOLS_PATTERN not in fcontent
-    needInsertJava17 = "JavaVersion.VERSION_17" not in fcontent and "JavaVersion.VERSION_11" not in fcontent
+    needInsertJava17 = "JavaVersion.VERSION_17" not in fcontent and "JavaVersion.VERSION_11" not in fcontent and not "JavaVersion.VERSION_1_8" in fcontent
     needInsertViewBiding = "viewBinding" not in fcontent
     needInsertNdkVersion = ndkVersionIsMissingInDefaultConfig(file_path)
     needInsertToolChainsVersion = "toolchain.languageVersion" not in fcontent
@@ -512,12 +540,16 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
                     new_file.write(line.replace("VERSION_11","VERSION_17"))
                     if not line.endswith("\n"):
                         new_file.write('\n')
+                elif "JavaVersion.VERSION_1_8" in line:
+                    new_file.write(line.replace("VERSION_1_8","VERSION_17"))
+                    if not line.endswith("\n"):
+                        new_file.write('\n') 
                 elif "kotlin-android-extensions" in line:
                     _yellow("remove kotlin-android-extensions in {0} ".format(file_path))
                     pass
                 else:
                     new_file.write(line)
-                if COMPILESDK_PATTERN in line and (needInsertbuildToolsVersion or needInsertNdkVersion or needInsertViewBiding or needInsertJava17 or needInsertToolChainsVersion) :
+                if (COMPILESDK_PATTERN in line or COMPILESDK in line)  and (needInsertbuildToolsVersion or needInsertNdkVersion or needInsertViewBiding or needInsertJava17 or needInsertToolChainsVersion) :
                     new_file.write('\n')  
                     if needInsertbuildToolsVersion: ## ndkVersion followed by compileVersion
                         new_file.write(joinStrings(white_space_num)+BUILD_TOOLS_PATTERN_REPLACEMENT.lstrip())  
