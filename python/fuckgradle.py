@@ -45,7 +45,7 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="1.8.22"
+KOTLIN_VERSION="1.9.0"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
@@ -171,13 +171,17 @@ GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.9.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2'"
 
 KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-core"
-KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'"
+KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2'"
 
 KOTLIN_REFLECT_PATTERN="org.jetbrains.kotlin:kotlin-reflect"
 KOTLIN_REFLECT_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlin:kotlin-reflect:{0}'".format(KOTLIN_VERSION)
+
+KOTLIN_SERIALIZATION_PATTERN="kotlinx-serialization-json"
+KOTLIN_SERIALIZATION_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'"
+
 
 KOTLINX_ATOMIC_FU_PATTERN="org.jetbrains.kotlinx:atomicfu"
 KOTLINX_ATOMIC_FU_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:atomicfu:0.18.5'"
@@ -325,7 +329,8 @@ REPLACEMENT_DICT_3 = {COMPILESDK_PATTERN:COMPILESDK_PATTERN_REPLACEMENT,
     LIFECYCLE_SM_SAVED_STATE_PATTERN:LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT,
     ANDROIDX_ROOM_RUNTIME:ANDROIDX_ROOM_RUNTIME_REPLACE_MENT,
     EXO_PLAYER_CORE:EXO_PLAYER_CORE_REPLACE_MENT,
-    EXO_PLAYER_UI:EXO_PLAYER_UI_REPLACE_MENT
+    EXO_PLAYER_UI:EXO_PLAYER_UI_REPLACE_MENT,
+    KOTLIN_SERIALIZATION_PATTERN:KOTLIN_SERIALIZATION_PATTERN_REPLACEMENT
     }
 
 
