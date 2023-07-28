@@ -202,7 +202,7 @@ CARD_VIEW_PATTERN="androidx.cardview:cardview"
 CARD_VIEW_PATTERN_REPLACEMENT="implementation 'androidx.cardview:cardview:1.0.0'"
 
 FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
-FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.6.0'"
+FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.6.1'"
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
 NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'"
