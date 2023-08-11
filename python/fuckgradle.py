@@ -49,7 +49,7 @@ KOTLIN_VERSION="1.9.0"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
-AGP_VERSION="8.0.2"
+AGP_VERSION="8.1.0"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
@@ -59,14 +59,14 @@ JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-grad
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
-GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-8.0.2-all.zip"
+GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-8.2.1-all.zip"
 
 
 COMPILESDK_PATTERN="compileSdkVersion"
 COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 33"
 
 COMPILESDK="compileSdk"
-COMPILESDK_REPLACEMENT="    compileSdk 33"
+COMPILESDK_REPLACEMENT="    compileSdk 34"
 
 
 TARGETSDK_PATTERN="targetSdkVersion"
@@ -78,7 +78,7 @@ MIN_SDK_VERSION_PATTERN_REPLACEMENT="minSdkVersion 27"
 
 
 BUILD_TOOLS_PATTERN="buildToolsVersion"
-BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '33.0.2'"
+BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '34.0.0'"
 
 DNK_PATTERN = "ndkVersion"
 NDK_PATTERN_REPLACEMENT = "ndkVersion '25.1.8937393'"
@@ -95,7 +95,7 @@ COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN="com.android.support:recyclerview-v7"
 COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT="        implementation 'com.android.support:recyclerview-v7:28.0.0'"
 
 RECYCLERVIEW_PATTERN_ANDROIDX="androidx.recyclerview:recyclerview"
-RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.3.0'"
+RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.3.1'"
 
 
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
@@ -205,10 +205,10 @@ FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
 FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.6.1'"
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
-NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'"
+NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.7.0'"
 
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
-NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'"
+NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.7.0'"
 
 lifecycle_version = "2.6.1"
 arch_version = "2.1.0"
@@ -262,7 +262,7 @@ LIFECYCLE_SM_SAVED_STATE_PATTERN="androidx.lifecycle:lifecycle-viewmodel-savedst
 LIFECYCLE_SM_SAVED_STATE_PATTERN_REPLACE_MENT="implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:{0}'".format(lifecycle_version)
 
 ANDROIDX_ROOM_RUNTIME="androidx.room:room-runtime:"
-ANDROIDX_ROOM_RUNTIME_REPLACE_MENT="implementation 'androidx.room:room-runtime:2.5.1'"
+ANDROIDX_ROOM_RUNTIME_REPLACE_MENT="implementation 'androidx.room:room-runtime:2.5.2'"
 
 
 EXO_PLAYER_CORE="com.google.android.exoplayer:exoplayer-core"
@@ -458,6 +458,7 @@ def handle_large_build_gradle_file(file_path):
     fh, abs_path = mkstemp()
     fcontent = readFileContent(file_abspath= file_path)
     if has_class_path:
+        _green(" file {0} has classpath keyword ".format(file_path))
         userdict = REPLACEMENT_DICT_1
         keys = userdict.keys()
         needInsertMavenCentral = MAVEN_CENTRAL not in fcontent
@@ -525,6 +526,7 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
     if "com.android.tools.build:gradle" in fcontent:
         _green('file {0} is large build file ,should not go this way'.format(file_path))
         return
+    this_is_android_small_build_file = "com.android.application" in fcontent or "com.android.library" in fcontent ## maybe java application
     needInsertbuildToolsVersion = BUILD_TOOLS_PATTERN not in fcontent
     needInsertJava17 = "JavaVersion.VERSION_17" not in fcontent and "JavaVersion.VERSION_11" not in fcontent and not "JavaVersion.VERSION_1_8" in fcontent
     needInsertViewBiding = "viewBinding" not in fcontent
@@ -577,7 +579,7 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
                         _green("add {0} to android block of file {1} automaticly ".format(JAVA_TOOL_CHAIN_17,file_path))
                         new_file.write('\n')
                 ## add core dependency if non detected
-                if "dependencies" in line:
+                if "dependencies" in line and this_is_android_small_build_file:
                     add_essential_libs_if_non_found(filecontent = fcontent, file= new_file,dict=
                     {
                         KOTLINX_COROUTINE_PATTERN:KOTLINX_COROUTINE_PATTERN_REPLACEMENT,
@@ -626,7 +628,7 @@ def handle_one_android_app(dirPath):
         elif(text_file_contains_keywords(gradlefile,["com.android.library","dependencies"])):
             dedicatedCallToReplaceAppBuildFile(gradlefile,REPLACEMENT_DICT_3)
         ## 3. this is an large android build.gradle file
-        elif (text_file_contains_keywords(gradlefile,["buildscript","allprojects"])):
+        elif (text_file_contains_keywords(gradlefile,["buildscript","allprojects"])) or (text_file_contains_keywords(gradlefile,["plugins","id","version","apply","false"])):
             # replace(gradlefile,REPLACEMENT_DICT_1)
             handle_large_build_gradle_file(gradlefile)
     if(os.path.exists(gradle_wrapper_file)):
