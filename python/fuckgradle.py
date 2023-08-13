@@ -61,13 +61,11 @@ GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributio
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-8.2.1-all.zip"
 
+COMPILESDK="compileSdk"
+COMPILESDK_REPLACEMENT="    compileSdk =  34"
 
 COMPILESDK_PATTERN="compileSdkVersion"
-COMPILESDK_PATTERN_REPLACEMENT="    compileSdkVersion 33"
-
-COMPILESDK="compileSdk"
-COMPILESDK_REPLACEMENT="    compileSdk 34"
-
+COMPILESDK_PATTERN_REPLACEMENT=COMPILESDK_REPLACEMENT
 
 TARGETSDK_PATTERN="targetSdkVersion"
 TARGETSDK_PATTERN_REPLACEMENT="    targetSdkVersion 29"
@@ -78,7 +76,7 @@ MIN_SDK_VERSION_PATTERN_REPLACEMENT="minSdkVersion 27"
 
 
 BUILD_TOOLS_PATTERN="buildToolsVersion"
-BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion '34.0.0'"
+BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion = '34.0.0'"
 
 DNK_PATTERN = "ndkVersion"
 NDK_PATTERN_REPLACEMENT = "ndkVersion '25.1.8937393'"
@@ -631,6 +629,8 @@ def handle_one_android_app(dirPath):
         elif (text_file_contains_keywords(gradlefile,["buildscript","allprojects"])) or (text_file_contains_keywords(gradlefile,["plugins","id","version","apply","false"])):
             # replace(gradlefile,REPLACEMENT_DICT_1)
             handle_large_build_gradle_file(gradlefile)
+        else:
+            pass
     if(os.path.exists(gradle_wrapper_file)):
         # print('file  {0}  exists '.format(gradlefile))
         # replace(gradle_wrapper_file,REPLACEMENT_DICT_2)
