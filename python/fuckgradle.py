@@ -59,7 +59,7 @@ JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-grad
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
-GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-8.2.1-all.zip"
+GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\://services.gradle.org/distributions/gradle-8.3-all.zip"
 
 COMPILESDK="compileSdk"
 COMPILESDK_REPLACEMENT="    compileSdk =  34"
@@ -108,7 +108,7 @@ ANDROIDX_ANNOTATION_PATTERN_REPLACEMENT="implementation 'androidx.annotation:ann
 
 
 GLIDE_PATTERN="com.github.bumptech.glide:glide"
-GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.12.0'"
+GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.13.2'"
 
 GLIDE_COMPILER="com.github.bumptech.glide:compiler"
 GLIDE_COMPILER_REPLACEMENT="annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'"
@@ -169,10 +169,10 @@ GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.9.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'"
 
 KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-core"
-KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2'"
+KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'"
 
 KOTLIN_REFLECT_PATTERN="org.jetbrains.kotlin:kotlin-reflect"
 KOTLIN_REFLECT_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlin:kotlin-reflect:{0}'".format(KOTLIN_VERSION)
@@ -684,23 +684,24 @@ def main():
     ## 1.0 . abort if this project has toml structure
     if(thisProjectHasTomlAndShouldAbort()):
         return
+    pwd = os.getcwd()
     ## 1. process large build.gradle file
     if(os.path.exists(LARGE_GRADLE_FILE)):
-        _green ('start processing File {0} {1}'.format(LARGE_GRADLE_FILE,"===="))
+        _green ('start processing File dir: {0} {1} {2}'.format(pwd,LARGE_GRADLE_FILE,"===="))
         filter_large_gradle(LARGE_GRADLE_FILE)
     else:
         _green ('File {0} {1}'.format(LARGE_GRADLE_FILE,"not exists"))
 
     ## 2. process gradle-warpper.properities file
     if(os.path.exists(GRADLE_WRAPPER_FILES)):
-        _green ('start processing File {0} {1}'.format(GRADLE_WRAPPER_FILES,"===="))
+        _green ('start processing File dir: {0} {1} {2} '.format(pwd,GRADLE_WRAPPER_FILES,"===="))
         filter_gradle_wrapper()
     else:
         _green ('File {0} {1}'.format(GRADLE_WRAPPER_FILES,"not exists"))
 
     ### 3. process app/build.gradle file
     if(os.path.exists(APP_BUILD_GRADLE_FILE)):
-        _green ('start processing File {0} {1}'.format(APP_BUILD_GRADLE_FILE,"===="))
+        _green ('start processing File {0} {1} {2}'.format(pwd,APP_BUILD_GRADLE_FILE,"===="))
         filter_app_build_gradle()
     else:
         maybe_module_not_called_app()
