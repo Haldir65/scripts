@@ -1,12 +1,8 @@
 import os
 
 
+from io_utility import _read_all_content_of_a_file_line_by_line
 
-def _read_all_content_of_a_file_line_by_line(path):
-    # removing the new line characters
-    with open(file=path) as f:
-        lines = [line.rstrip() for line in f]
-        return lines
 
 
 def main():
@@ -20,9 +16,6 @@ def main():
         # print(len(wd))
         # print(f)
         # print(*files, sep="\n")
-
-
-
 
 
 

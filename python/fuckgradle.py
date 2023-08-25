@@ -9,6 +9,8 @@ from os import fdopen, remove
 import re
 import mmap
 
+
+
 ## [python print with color](https://stackoverflow.com/a/65860612)
 class colors: # You may need to change color settings
     RED = '\033[31m'
@@ -182,7 +184,7 @@ KOTLIN_SERIALIZATION_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:
 
 
 KOTLINX_ATOMIC_FU_PATTERN="org.jetbrains.kotlinx:atomicfu"
-KOTLINX_ATOMIC_FU_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:atomicfu:0.18.5'"
+KOTLINX_ATOMIC_FU_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:atomicfu:0.22.0'"
 
 JETBRAIN_KOTLIN_STDLIB_7="org.jetbrains.kotlin:kotlin-stdlib-jdk7:"
 JETBRAIN_KOTLIN_STDLIB_8="implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version\""

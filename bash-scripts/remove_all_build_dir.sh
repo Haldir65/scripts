@@ -1,6 +1,7 @@
 
 #!/bin/bash
 set -e
+source ./functions.sh
 
 
 function removeBuildDir(){
@@ -10,15 +11,16 @@ function removeBuildDir(){
     fi
 }
 
-echo "remove all app/build dir , usage :\n bash $0"
-echo "or you can simply use one command"
-echo "find . -type d -name 'build' -exec rm -r {} \;"
+_green "remove all app/build dir , usage :\n bash $0"
+_green "\n or you can simply use one command"
+_green "\n find . -type d -name 'build' -exec rm -r {} \;"
 
 rootdir=`pwd`
 for i in `ls -d */`; do cd ${rootdir}/${i} && removeBuildDir ${rootdir}/${i} && cd ..;done
 
 
-echo "done"
+
+_blue "done"
 
 
 ## for directory
