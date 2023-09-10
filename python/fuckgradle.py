@@ -190,7 +190,7 @@ JETBRAIN_KOTLIN_STDLIB_7="org.jetbrains.kotlin:kotlin-stdlib-jdk7:"
 JETBRAIN_KOTLIN_STDLIB_8="implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version\""
 
 ANDROID_KTX_PATTERN="androidx.core:core-ktx"
-ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.10.1'"
+ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.12.0'"
 
 ANDROID_ACTIVITY_KTX_PATTERN="androidx.activity:activity-ktx"
 ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.7.2'"
