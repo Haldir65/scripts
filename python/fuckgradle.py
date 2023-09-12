@@ -210,7 +210,7 @@ NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
 NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.7.0'"
 
-lifecycle_version = "2.6.1"
+lifecycle_version = "2.6.2"
 arch_version = "2.1.0"
 
 
