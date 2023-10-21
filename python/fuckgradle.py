@@ -51,7 +51,7 @@ KOTLIN_VERSION="1.9.10"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
-AGP_VERSION="8.1.1"
+AGP_VERSION="8.1.2"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
@@ -95,7 +95,7 @@ COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN="com.android.support:recyclerview-v7"
 COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT="        implementation 'com.android.support:recyclerview-v7:28.0.0'"
 
 RECYCLERVIEW_PATTERN_ANDROIDX="androidx.recyclerview:recyclerview"
-RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.3.1'"
+RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.3.2'"
 
 
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
@@ -168,7 +168,7 @@ ANDROIDX_APPCOMPAT="androidx.appcompat:appcompat"
 ANDROIDX_APPCOMPAT_REPLACEMENT="    implementation 'androidx.appcompat:appcompat:1.6.1'"
 
 GOOGLE_MATERIAL="com.google.android.material:material"
-GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.9.0'"
+GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.10.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
 KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'"
@@ -193,7 +193,7 @@ ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.12.0'"
 
 ANDROID_ACTIVITY_KTX_PATTERN="androidx.activity:activity-ktx"
-ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.7.2'"
+ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.8.0'"
 
 CARD_VIEW_PATTERN_SUPPORT="com.android.support:cardview"
 CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT="implementation 'com.android.support:cardview-v7:28.0.0'"
@@ -205,10 +205,10 @@ FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
 FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.6.1'"
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
-NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.7.0'"
+NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.7.4'"
 
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
-NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.7.0'"
+NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.7.4'"
 
 lifecycle_version = "2.6.2"
 arch_version = "2.1.0"
