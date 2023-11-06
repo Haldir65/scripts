@@ -47,11 +47,11 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="1.9.10"
+KOTLIN_VERSION="1.9.20"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
-AGP_VERSION="8.1.2"
+AGP_VERSION="8.1.3"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
@@ -81,7 +81,7 @@ BUILD_TOOLS_PATTERN="buildToolsVersion"
 BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion = '34.0.0'"
 
 DNK_PATTERN = "ndkVersion"
-NDK_PATTERN_REPLACEMENT = "ndkVersion '25.1.8937393'"
+NDK_PATTERN_REPLACEMENT = "ndkVersion '26.1.10909125'"
 MAVEN_CENTRAL = "mavenCentral()"
 JCENTER = "jcenter()"
 GOOGLE = "google()"
