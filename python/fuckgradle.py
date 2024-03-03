@@ -47,14 +47,14 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="1.9.21"
+KOTLIN_VERSION="1.9.22"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
 #     id("com.google.devtools.ksp").version("1.9.21-1.0.15") // Or latest version of KSP
 
 
-AGP_VERSION="8.2.1"
+AGP_VERSION="8.2.2"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
@@ -208,12 +208,12 @@ FRAGMENT_KTX = "androidx.fragment:fragment-ktx:"
 FRAGMENT_KTX_REPLACEMENT = "implementation 'androidx.fragment:fragment-ktx:1.6.2'"
 
 NAVIGATION_FRAGMENT_KTX_PATTERN="androidx.navigation:navigation-fragment-ktx"
-NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.7.4'"
+NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'"
 
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
-NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.7.4'"
+NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'"
 
-lifecycle_version = "2.6.2"
+lifecycle_version = "2.7.0"
 arch_version = "2.1.0"
 
 
