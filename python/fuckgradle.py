@@ -47,14 +47,14 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="1.9.22"
+KOTLIN_VERSION="1.9.23"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
 #     id("com.google.devtools.ksp").version("1.9.21-1.0.15") // Or latest version of KSP
 
 
-AGP_VERSION="8.3.0"
+AGP_VERSION="8.3.1"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
@@ -84,7 +84,7 @@ BUILD_TOOLS_PATTERN="buildToolsVersion"
 BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion = '34.0.0'"
 
 DNK_PATTERN = "ndkVersion"
-NDK_PATTERN_REPLACEMENT = "ndkVersion '26.1.10909125'"
+NDK_PATTERN_REPLACEMENT = "ndkVersion '26.3.11579264'"
 MAVEN_CENTRAL = "mavenCentral()"
 JCENTER = "jcenter()"
 GOOGLE = "google()"
@@ -129,10 +129,10 @@ RX_ANDROID_PATTERN_REPLACEMENT="    implementation 'io.reactivex.rxjava2:rxandro
 
 
 RETROFIT_PATTERN="com.squareup.retrofit2:retrofit"
-RETROFT_PATTERN_REPLACEMENT="    implementation 'com.squareup.retrofit2:retrofit:2.9.0'"
+RETROFT_PATTERN_REPLACEMENT="    implementation 'com.squareup.retrofit2:retrofit:2.11.0'"
 
 RETROFIT_GSON_PATTERN="com.squareup.retrofit2:converter-gson"
-RETROFT_GSON_PATTERN_REPLACEMENT="implementation 'com.squareup.retrofit2:converter-gson:2.9.0'"
+RETROFT_GSON_PATTERN_REPLACEMENT="implementation 'com.squareup.retrofit2:converter-gson:2.11.0'"
 
 
 TEST_RUNNNER_PATTERN="com.android.support.test:runner"
@@ -183,7 +183,7 @@ KOTLIN_REFLECT_PATTERN="org.jetbrains.kotlin:kotlin-reflect"
 KOTLIN_REFLECT_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlin:kotlin-reflect:{0}'".format(KOTLIN_VERSION)
 
 KOTLIN_SERIALIZATION_PATTERN="kotlinx-serialization-json"
-KOTLIN_SERIALIZATION_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'"
+KOTLIN_SERIALIZATION_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3'"
 
 
 KOTLINX_ATOMIC_FU_PATTERN="org.jetbrains.kotlinx:atomicfu"
@@ -217,20 +217,20 @@ lifecycle_version = "2.7.0"
 arch_version = "2.1.0"
 
 
-COMPILE_OPTION_17_HERE_DOCUMENT = """
+COMPILE_OPTION_21_HERE_DOCUMENT = """
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
+        jvmTarget = JavaVersion.VERSION_21
     }
 """
 
-JAVA_TOOL_CHAIN_17 = """
+JAVA_TOOL_CHAIN_21 = """
     java {
-        toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+        toolchain.languageVersion.set(JavaLanguageVersion.of(21))
     }
 """
 
@@ -535,7 +535,7 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
         return
     this_is_android_small_build_file = "com.android.application" in fcontent or "com.android.library" in fcontent ## maybe java application
     needInsertbuildToolsVersion = BUILD_TOOLS_PATTERN not in fcontent
-    needInsertJava17 = "JavaVersion.VERSION_17" not in fcontent and "JavaVersion.VERSION_11" not in fcontent and not "JavaVersion.VERSION_1_8" in fcontent
+    needInsertJava21 = "JavaVersion.VERSION_21" not in fcontent and "JavaVersion.VERSION_17" not in fcontent and "JavaVersion.VERSION_11" not in fcontent and not "JavaVersion.VERSION_1_8" in fcontent
     needInsertViewBiding = "viewBinding" not in fcontent
     needInsertNdkVersion = ndkVersionIsMissingInDefaultConfig(file_path)
     needInsertToolChainsVersion = "toolchain.languageVersion" not in fcontent
@@ -550,12 +550,16 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
                     content_to_write = joinStrings(white_space_num)+compat_api_or_implementation(line = line , newline = userdict[key].lstrip(),filename=file_path)
                     new_file.write(content_to_write)
                     new_file.write('\n')
+                elif "JavaVersion.VERSION_17" in line:
+                    new_file.write(line.replace("VERSION_17","VERSION_21"))
+                    if not line.endswith("\n"):
+                        new_file.write('\n')     
                 elif "JavaVersion.VERSION_11" in line:
-                    new_file.write(line.replace("VERSION_11","VERSION_17"))
+                    new_file.write(line.replace("VERSION_11","VERSION_21"))
                     if not line.endswith("\n"):
                         new_file.write('\n')
                 elif "JavaVersion.VERSION_1_8" in line:
-                    new_file.write(line.replace("VERSION_1_8","VERSION_17"))
+                    new_file.write(line.replace("VERSION_1_8","VERSION_21"))
                     if not line.endswith("\n"):
                         new_file.write('\n') 
                 elif "kotlin-android-extensions" in line:
@@ -563,7 +567,7 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
                     pass
                 else:
                     new_file.write(line)
-                if (COMPILESDK_PATTERN in line or COMPILESDK in line)  and (needInsertbuildToolsVersion or needInsertNdkVersion or needInsertViewBiding or needInsertJava17 or needInsertToolChainsVersion) :
+                if (COMPILESDK_PATTERN in line or COMPILESDK in line)  and (needInsertbuildToolsVersion or needInsertNdkVersion or needInsertViewBiding or needInsertJava21 or needInsertToolChainsVersion) :
                     new_file.write('\n')  
                     if needInsertbuildToolsVersion: ## ndkVersion followed by compileVersion
                         new_file.write(joinStrings(white_space_num)+BUILD_TOOLS_PATTERN_REPLACEMENT.lstrip())  
@@ -577,13 +581,13 @@ def dedicatedCallToReplaceAppBuildFile(file_path, userdict):
                         new_file.write(joinStrings(white_space_num)+ENABLE_VIEWBINDING_HERE_DOCUMENT)
                         _green("add {0} to android block of file {1} automaticly ".format(ENABLE_VIEWBINDING_HERE_DOCUMENT,file_path)) 
                         new_file.write('\n')
-                    if needInsertJava17:
-                        new_file.write(joinStrings(white_space_num)+COMPILE_OPTION_17_HERE_DOCUMENT)
-                        _green("add {0} to android block of file {1} automaticly ".format(COMPILE_OPTION_17_HERE_DOCUMENT,file_path))
+                    if needInsertJava21:
+                        new_file.write(joinStrings(white_space_num)+COMPILE_OPTION_21_HERE_DOCUMENT)
+                        _green("add {0} to android block of file {1} automaticly ".format(COMPILE_OPTION_21_HERE_DOCUMENT,file_path))
                         new_file.write('\n')
                     if needInsertToolChainsVersion:
-                        new_file.write(joinStrings(white_space_num)+JAVA_TOOL_CHAIN_17)
-                        _green("add {0} to android block of file {1} automaticly ".format(JAVA_TOOL_CHAIN_17,file_path))
+                        new_file.write(joinStrings(white_space_num)+JAVA_TOOL_CHAIN_21)
+                        _green("add {0} to android block of file {1} automaticly ".format(JAVA_TOOL_CHAIN_21,file_path))
                         new_file.write('\n')
                 ## add core dependency if non detected
                 if "dependencies" in line and this_is_android_small_build_file:
