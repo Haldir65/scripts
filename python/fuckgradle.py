@@ -54,7 +54,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VE
 #     id("com.google.devtools.ksp").version("1.9.21-1.0.15") // Or latest version of KSP
 
 
-AGP_VERSION="8.4.1"
+AGP_VERSION="8.5.0"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
@@ -138,7 +138,7 @@ RETROFT_GSON_PATTERN_REPLACEMENT="implementation 'com.squareup.retrofit2:convert
 TEST_RUNNNER_PATTERN="com.android.support.test:runner"
 TEST_RUNNNER_PATTERN_REPLACEMENT="    androidTestImplementation 'com.android.support.test:runner:1.0.2'"
 
-ESPRESSO_LATEST_VERSION="3.5.1"
+ESPRESSO_LATEST_VERSION="3.6.1"
 
 TEST_ESPRESSO_PATTERN="com.android.support.test.espresso:espresso-core"
 TEST_ESPRESSO_PATTERN_REPLACEMENT="androidTestImplementation 'com.android.support.test.espresso:espresso-core:{0}'".format(ESPRESSO_LATEST_VERSION)
@@ -148,7 +148,7 @@ TEST_ESPRESSO_PATTERN_X_REPLACEMENT="androidTestImplementation 'androidx.test.es
 
 
 TEST_JUNIT_PATTERN="androidx.test.ext:junit"
-TEST_JUNIT_PATTERN_REPLACEMENT="androidTestImplementation 'androidx.test.ext:junit:1.1.5'"
+TEST_JUNIT_PATTERN_REPLACEMENT="androidTestImplementation 'androidx.test.ext:junit:1.2.1'"
 
 ANDROID_SUPPORT_DESIGN_PATTERN="com.android.support:design:"
 ANDROID_SUPPORT_DESIGN_PATTERN_REPLACEMENT="    implementation 'com.android.support:design:28.0.0'"
@@ -213,7 +213,7 @@ NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
 NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'"
 
-lifecycle_version = "2.8.1"
+lifecycle_version = "2.8.3"
 arch_version = "2.1.0"
 
 
