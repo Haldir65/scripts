@@ -47,14 +47,14 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="2.0.0"
+KOTLIN_VERSION="2.0.10"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
 #     id("com.google.devtools.ksp").version("1.9.21-1.0.15") // Or latest version of KSP
 
 
-AGP_VERSION="8.5.1"
+AGP_VERSION="8.5.2"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
@@ -67,7 +67,7 @@ GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distri
 GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip"
 
 COMPILESDK="compileSdk"
-COMPILESDK_REPLACEMENT="    compileSdk =  34"
+COMPILESDK_REPLACEMENT="    compileSdk =  35"
 
 COMPILESDK_PATTERN="compileSdkVersion"
 COMPILESDK_PATTERN_REPLACEMENT=COMPILESDK_REPLACEMENT
@@ -81,7 +81,7 @@ MIN_SDK_VERSION_PATTERN_REPLACEMENT="minSdkVersion 27"
 
 
 BUILD_TOOLS_PATTERN="buildToolsVersion"
-BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion = '34.0.0'"
+BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion = '35.0.0'"
 
 DNK_PATTERN = "ndkVersion"
 NDK_PATTERN_REPLACEMENT = "ndkVersion '26.3.11579264'"
