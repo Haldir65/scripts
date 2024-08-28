@@ -47,7 +47,7 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="2.0.10"
+KOTLIN_VERSION="2.0.20"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
@@ -64,7 +64,7 @@ JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-grad
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\\://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
-GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip"
+GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\\://services.gradle.org/distributions/gradle-8.10-all.zip"
 
 COMPILESDK="compileSdk"
 COMPILESDK_REPLACEMENT="    compileSdk =  35"
