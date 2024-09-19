@@ -54,7 +54,7 @@ EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VE
 #     id("com.google.devtools.ksp").version("1.9.21-1.0.15") // Or latest version of KSP
 
 
-AGP_VERSION="8.5.2"
+AGP_VERSION="8.6.1"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
@@ -84,7 +84,7 @@ BUILD_TOOLS_PATTERN="buildToolsVersion"
 BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion = '35.0.0'"
 
 DNK_PATTERN = "ndkVersion"
-NDK_PATTERN_REPLACEMENT = "ndkVersion '26.3.11579264'"
+NDK_PATTERN_REPLACEMENT = "ndkVersion '27.1.12297006'"
 MAVEN_CENTRAL = "mavenCentral()"
 JCENTER = "jcenter()"
 GOOGLE = "google()"
