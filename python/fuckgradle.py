@@ -113,7 +113,7 @@ ANDROIDX_ANNOTATION_PATTERN_REPLACEMENT="implementation 'androidx.annotation:ann
 
 
 GLIDE_PATTERN="com.github.bumptech.glide:glide"
-GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.13.2'"
+GLIDE_PATTERN_REPLACEMENT="    implementation 'com.github.bumptech.glide:glide:4.16.0'"
 
 GLIDE_COMPILER="com.github.bumptech.glide:compiler"
 GLIDE_COMPILER_REPLACEMENT="annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'"
@@ -174,10 +174,10 @@ GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.12.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'"
 
 KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-core"
-KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1'"
+KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'"
 
 KOTLIN_REFLECT_PATTERN="org.jetbrains.kotlin:kotlin-reflect"
 KOTLIN_REFLECT_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlin:kotlin-reflect:{0}'".format(KOTLIN_VERSION)
@@ -196,7 +196,7 @@ ANDROID_KTX_PATTERN="androidx.core:core-ktx"
 ANDROID_KTX_PATTERN_REPLACEMENT="implementation 'androidx.core:core-ktx:1.13.1'"
 
 ANDROID_ACTIVITY_KTX_PATTERN="androidx.activity:activity-ktx"
-ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.9.0'"
+ANDROID_ACTIVITY_KTX_PATTERNN_REPLACEMENT="implementation 'androidx.activity:activity-ktx:1.9.2'"
 
 CARD_VIEW_PATTERN_SUPPORT="com.android.support:cardview"
 CARD_VIEW_PATTERN_SUPPORT_REPLACEMENT="implementation 'com.android.support:cardview-v7:28.0.0'"

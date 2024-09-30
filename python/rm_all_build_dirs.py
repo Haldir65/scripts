@@ -21,7 +21,10 @@ def sum_dir_size_in_bytes(abs_dir_path):
             fp = os.path.join(path, f)
             if( isWindows and len(fp)>260):
                 fp = r"\\?\%s" % os.path.join(path, f)
-            total_size += os.path.getsize(fp)
+            try:    
+                total_size += os.path.getsize(fp)
+            except FileNotFoundError as e:
+                _red('error while calculating file {0} size'.format(fp))                
     return total_size 
 
 def _delete_folder_and_return_size(dir_path):
