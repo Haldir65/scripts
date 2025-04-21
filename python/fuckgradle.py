@@ -47,14 +47,14 @@ APP_BUILD_GRADLE_FILE = "app/build.gradle"
 ## ext.kotlin_version = '1.3.61'
 
 
-KOTLIN_VERSION="2.1.10"
+KOTLIN_VERSION="2.1.20"
 EXT_KOTLIN_PATTERN="ext.kotlin_version"
 EXT_KOTLIN_PATTERN_REPLACEMENT="    ext.kotlin_version = '{0}'".format(KOTLIN_VERSION)
 
 #     id("com.google.devtools.ksp").version("1.9.21-1.0.15") // Or latest version of KSP
 
 
-AGP_VERSION="8.8.0"
+AGP_VERSION="8.9.1"
 
 GRALDE_PATTERN="classpath 'com.android.tools.build:gradle:" ## implementation 'com.android.tools.build:gradle:4.1.1' in gradle plugin shouldn't match
 GRALDE_PATTERN_REPLACEMENT="classpath 'com.android.tools.build:gradle:{0}'".format(AGP_VERSION)
@@ -64,7 +64,7 @@ JETBRAIN_GRALDE_PATTERN_REPLACEMENT="classpath 'org.jetbrains.kotlin:kotlin-grad
 
 GRADLE_WRAPPER_PATTERN="distributionUrl=https\\://services.gradle.org/distributions/"
 GRADLE_WRAPPER_PATTERN_ALTER="distributionUrl=https://services.gradle.org/distributions/"
-GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\\://services.gradle.org/distributions/gradle-8.12.1-all.zip"
+GRADLE_WRAPPER_PATTERN_REPLACEMENT="distributionUrl=https\\://services.gradle.org/distributions/gradle-8.13-all.zip"
 
 COMPILESDK="compileSdk"
 COMPILESDK_REPLACEMENT="    compileSdk =  35"
@@ -84,7 +84,7 @@ BUILD_TOOLS_PATTERN="buildToolsVersion"
 BUILD_TOOLS_PATTERN_REPLACEMENT="    buildToolsVersion = '35.0.0'"
 
 DNK_PATTERN = "ndkVersion"
-NDK_PATTERN_REPLACEMENT = "ndkVersion '27.1.12297006'"
+NDK_PATTERN_REPLACEMENT = "ndkVersion '28.0.13004108'"
 MAVEN_CENTRAL = "mavenCentral()"
 JCENTER = "jcenter()"
 GOOGLE = "google()"
@@ -98,11 +98,11 @@ COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN="com.android.support:recyclerview-v7"
 COMPILE_SUPPORT_RECYCLER_VIEW_PATTERN_REPLACEMENT="        implementation 'com.android.support:recyclerview-v7:28.0.0'"
 
 RECYCLERVIEW_PATTERN_ANDROIDX="androidx.recyclerview:recyclerview"
-RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.3.2'"
+RECYCLERVIEW_PATTERN_ANDROIDX_REPLACEMENT="implementation 'androidx.recyclerview:recyclerview:1.4.0'"
 
 
 CONSTRAINT_LAYOUT="androidx.constraintlayout:constraintlayout"
-CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'"
+CONSTRAINT_LAYOUT_REPLACEMENT="    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'"
 
 CONSTRAINT_LAYOUT_SUPPORT="com.android.support.constraint:constraint-layout"
 CONSTRAINT_LAYOUT_SUPPORT_REPLACEMENT="    implementation 'com.android.support.constraint:constraint-layout:2.0.4'"
@@ -174,10 +174,10 @@ GOOGLE_MATERIAL="com.google.android.material:material"
 GOOGLE_MATERIAL_REPLACEMENT="    implementation 'com.google.android.material:material:1.12.0'"
 
 KOTLINX_COROUTINE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-android"
-KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'"
+KOTLINX_COROUTINE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1'"
 
 KOTLINX_COROUTINE_CORE_PATTERN="org.jetbrains.kotlinx:kotlinx-coroutines-core"
-KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'"
+KOTLINX_COROUTINE_CORE_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1'"
 
 KOTLIN_REFLECT_PATTERN="org.jetbrains.kotlin:kotlin-reflect"
 KOTLIN_REFLECT_PATTERN_REPLACEMENT="implementation 'org.jetbrains.kotlin:kotlin-reflect:{0}'".format(KOTLIN_VERSION)
@@ -213,7 +213,7 @@ NAVIGATION_FRAGMENT_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation
 NAVIGATION_UI_KTX_PATTERN="androidx.navigation:navigation-ui-ktx"
 NAVIGATION_UI_KTX_PATTERN_REPLACEMENT="implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'"
 
-lifecycle_version = "2.8.3"
+lifecycle_version = "2.8.7"
 arch_version = "2.1.0"
 
 
